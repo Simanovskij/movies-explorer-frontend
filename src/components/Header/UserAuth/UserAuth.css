@@ -1,0 +1,21 @@
+.button {
+  text-decoration: none;
+  color:#fff;
+  padding: 8px 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: opacity .4s linear;
+}
+
+.button_type_signin {
+  color:#000;
+  background-color: #2BE080;
+  border-radius: 3px;
+  margin-left:10px;
+}
+
+.button:hover {
+  opacity: .6;
+}
