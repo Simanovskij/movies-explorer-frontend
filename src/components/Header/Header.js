@@ -5,9 +5,11 @@ import Hamburger from 'hamburger-react';
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 function Header({ isLoggedIn }) {
   const [width, setWidth] = useState(window.innerWidth);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -22,8 +24,9 @@ function Header({ isLoggedIn }) {
 
   const burgerHandler = (toggled) => {
     if (toggled) {
+      setIsBurgerOpen(true);
     } else {
-      console.log(3);
+      setIsBurgerOpen(false);
     }
   };
 
@@ -46,6 +49,7 @@ function Header({ isLoggedIn }) {
         <Route path={['/movies', '/saved-movies', '/profile']}>
           <Navigation />
           {isMobile ? <Hamburger onToggle={burgerHandler} /> : <ProfileBtn />}
+          <BurgerMenu isOpen={isBurgerOpen} />
         </Route>
       </Switch>
     </div>
