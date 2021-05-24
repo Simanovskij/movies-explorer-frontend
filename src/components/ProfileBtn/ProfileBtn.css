@@ -1,0 +1,21 @@
+.profile-btn {
+  display: flex;
+  align-items: center;
+}
+
+.profile-btn__image {
+  width: 30px;
+  height: 30px;
+  /* background-color: #f9f9f9; */
+  background: url('../../images/profile_btn.svg') center no-repeat #f9f9f9;
+  margin-left: 13px;
+  border-radius: 6px;
+}
+
+.profile-btn__link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000;
+}

@@ -1,0 +1,24 @@
+.navigation {
+  display: flex;
+}
+
+.navigation__link {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000;
+}
+
+.navigation__link_active {
+  font-weight: 500;
+}
+
+.navigation__link:first-child {
+  margin-right: 16px;
+}
+
+.navigation__link:last-of-type {
+  margin-right: 10px;
+}
