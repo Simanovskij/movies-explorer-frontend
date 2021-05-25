@@ -48,8 +48,9 @@ function Header({ isLoggedIn }) {
         </Route>
         <Route path={['/movies', '/saved-movies', '/profile']}>
           <Navigation />
-          {isMobile ? <Hamburger onToggle={burgerHandler} /> : <ProfileBtn />}
-          <BurgerMenu isOpen={isBurgerOpen} />
+          {/* {isMobile ? <Hamburger onToggle={burgerHandler} /> : <ProfileBtn />}
+          <BurgerMenu isOpen={isBurgerOpen} /> */}
+          <ProfileBtn />
         </Route>
       </Switch>
     </div>

@@ -6,7 +6,6 @@
 .profile-btn__image {
   width: 30px;
   height: 30px;
-  /* background-color: #f9f9f9; */
   background: url('../../images/profile_btn.svg') center no-repeat #f9f9f9;
   margin-left: 13px;
   border-radius: 6px;
