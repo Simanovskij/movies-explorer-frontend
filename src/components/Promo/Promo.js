@@ -1,5 +1,4 @@
 import './Promo.css';
-import { Link } from 'react-router-dom';
 
 function Promo() {
   return (
@@ -13,7 +12,9 @@ function Promo() {
         </div>
         <div className='promo__image'></div>
       </div>
-      <Link className='promo__link'>Узнать больше</Link>
+      <a href='#more' className='promo__link'>
+        Узнать больше
+      </a>
     </section>
   );
 }
