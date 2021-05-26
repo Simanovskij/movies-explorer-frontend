@@ -7,14 +7,14 @@ function AboutProject() {
       <div className='about-project__arcticle-container'>
         <article className='about-project__article'>
           <h3 className='about-project__article-title'>Дипломный проект включал 5 этапов</h3>
-          <p className='about-project__article-text>'>
+          <p className='about-project__article-text'>
             Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные
             доработки.
           </p>
         </article>
         <article className='about-project__article'>
           <h3 className='about-project__article-title'>На выполнение диплома ушло 5 недель</h3>
-          <p className='about-project__article-text>'>
+          <p className='about-project__article-text'>
             У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы
             успешно защититься.
           </p>
