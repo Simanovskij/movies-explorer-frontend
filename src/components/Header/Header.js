@@ -6,19 +6,6 @@ import Navigation from '../Navigation/Navigation';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
 
 function Header({ isLoggedIn }) {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  });
-
-  const isMobile = width <= 768;
-
   return (
     <header className={isLoggedIn ? 'header header_type_logged' : 'header'}>
       <Link to='/'>
