@@ -1,6 +1,5 @@
 import './Header.css';
 import { Route, Switch, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';

@@ -17,4 +17,9 @@
   line-height: 16px;
   text-decoration: none;
   color: #000;
+  transition: opacity 0.4s linear;
+}
+
+.profile-btn__link:hover {
+  opacity: 0.7;
 }

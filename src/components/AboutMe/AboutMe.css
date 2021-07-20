@@ -49,11 +49,11 @@
 
 .about-me__link {
   text-decoration: none;
-  color: #4169e1;
+  color: #3456f3;
   transition: opacity 0.4s linear;
 }
 .about-me__link:hover {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .about-me__photo {
@@ -74,7 +74,7 @@
 }
 
 .about-me__social-link:hover {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .about-me__social-link:first-child {
@@ -126,11 +126,11 @@
   .about-me__content {
     padding-top: 60px;
     flex-direction: column-reverse;
-    align-items: center;
   }
   .about-me__photo {
     max-width: 292px;
     margin: 0;
+    align-self: center;
   }
   .about-me__name {
     font-size: 30px;

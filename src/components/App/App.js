@@ -2,6 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
@@ -10,12 +11,15 @@ function App() {
         <Route exact path='/'>
           <Header />
           <Main />
+          <Footer />
         </Route>
         <Route exact path='/movies'>
           <Header isLoggedIn={true} />
+          <Footer />
         </Route>
         <Route exact path='/saved-movies'>
           <Header isLoggedIn={true} />
+          <Footer />
         </Route>
       </Switch>
     </div>

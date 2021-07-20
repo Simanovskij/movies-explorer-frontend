@@ -34,10 +34,20 @@ function AboutMe() {
             </p>
           </div>
           <div className='about-me__social-links'>
-            <a className='about-me__social-link' href='https://github.com/'>
+            <a
+              className='about-me__social-link'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/Simanovskij'
+            >
               Github
             </a>
-            <a className='about-me__social-link' href='https://github.com/'>
+            <a
+              className='about-me__social-link'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/Simanovskij'
+            >
               Github
             </a>
           </div>
