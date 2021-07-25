@@ -7,8 +7,8 @@ import ProfileBtn from '../ProfileBtn/ProfileBtn';
 function Header({ isLoggedIn }) {
   return (
     <header className={isLoggedIn ? 'header header_type_logged' : 'header'}>
-      <Link to='/'>
-        <img className='header__logo' src={logo} alt='Лого' />
+      <Link to='/' className='header__logo-link'>
+        <img className='header__logo-image' src={logo} alt='Лого' />
       </Link>
       <Switch>
         <Route exact path='/'>

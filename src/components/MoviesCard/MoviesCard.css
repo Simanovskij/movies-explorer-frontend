@@ -1,0 +1,74 @@
+.movie {
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+  background-color: #FDFDFD;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+.movie__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px 18px;
+}
+
+.movie__title {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0;
+  max-width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.movie__duration {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #A0A0A0;
+}
+
+.movie__image {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 18px;
+}
+
+.movie__like-btn {
+  width: 100px;
+  height: 29px;
+  margin: 0 auto;
+  background-color: #F9F9F9;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: opacity .4s linear;
+}
+
+.movie__like-btn::after {
+  content: 'Сохранить';
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 11px;
+}
+
+.movie__like-btn_liked {
+  background-color: #FF3055;
+  background-image: url('../../images/like_icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.movie__like-btn_liked::after {
+  content: '';
+}
+
+.movie__like-btn:hover {
+  opacity: .8;
+}

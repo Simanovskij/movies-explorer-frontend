@@ -3,33 +3,18 @@ import { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList() {
-  const [movies, setmovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const tempRequest = () => {
-    setIsLoading(true);
-    fetch('https://api.nomoreparties.co/beatfilm-movies').then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(new Error('res.status'));
-    }).then((res) => {
-      setmovies(res);
-    }).finally(() => {
-      setIsLoading(false);
-    });
-  };
+function MoviesCardList({ isLoading }) {
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    tempRequest();
+    setMovies(JSON.parse(localStorage.getItem('movies')));
   }, []);
 
   return (
-      <section className="movie-list">
-        {isLoading ? <Preloader/> : movies.map((movie) => (
-            <MoviesCard key={movie.id} movie={movie}/>))}
-      </section>
+    <section className='movie-list'>
+      {isLoading ? <Preloader/> : <div className='movie-list__wrapper'>{movies.map((movie) => (
+        <MoviesCard key={movie.id} movie={movie}/>))}</div>}
+    </section>
   );
 }
 
