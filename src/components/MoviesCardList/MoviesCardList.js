@@ -12,8 +12,12 @@ function MoviesCardList({ isLoading }) {
 
   return (
     <section className='movie-list'>
-      {isLoading ? <Preloader/> : <div className='movie-list__wrapper'>{movies.map((movie) => (
-        <MoviesCard key={movie.id} movie={movie}/>))}</div>}
+      {isLoading ? <Preloader/> : <>
+        <div className='movie-list__wrapper'>{movies.map((movie) => (
+          <MoviesCard key={movie.id} movie={movie}/>))}</div>
+        <button type='button' className='movie-list__more-btn'>Ещё</button>
+      </>
+      }
     </section>
   );
 }
