@@ -16,9 +16,9 @@ function MoviesCardList({ isLoading, pathname }) {
       {isLoading ? <Preloader/> : <>
         <div className='movie-list__wrapper'>{movies.map((movie) => (
           <MoviesCard key={movie.id} pathname={pathname} movie={movie}/>))}</div>
+        {pathname === '/movies' ? <MoreButton/> : null}
       </>
       }
-      {pathname === '/movies' ? <MoreButton/> : null}
     </section>
   );
 }
