@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../Header/Header';
@@ -9,7 +9,7 @@ import moviesApi from '../../utils/MoviesApi';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-
+  const { pathname } = useLocation();
   const saveMovies = () => {
     setIsLoading(true);
     moviesApi.getMovies().then((res) => {
@@ -36,7 +36,7 @@ function App() {
         </Route>
         <Route exact path='/movies'>
           <Header isLoggedIn={true}/>
-          <Movies isLoading={isLoading}/>
+          <Movies isLoading={isLoading} pathname={pathname}/>
           <Footer/>
         </Route>
         <Route exact path='/saved-movies'>

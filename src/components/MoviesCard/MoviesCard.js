@@ -1,14 +1,14 @@
 import './MoviesCard.css';
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, pathname }) {
   const imageURL = 'https://api.nomoreparties.co';
-
+  const isLiked = getRandom(1, 10) < 5;
+  const buttonForMoviesPath = isLiked ? <button className='movie__like-btn_liked movie__like-btn'/>
+    : <button className='movie__like-btn'> Сохранить </button>;
+  const buttonForSavedMoviesPath = '';
   function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
-
-  const isLiked = getRandom(1, 10) < 5;
-
   return (
     <article className='movie'>
       <div className='movie__header'>
@@ -16,8 +16,7 @@ function MoviesCard({ movie }) {
         <span className='movie__duration'>{movie.duration} минут</span>
       </div>
       <img className='movie__image' src={imageURL + movie.image.url} alt={movie.nameRU}/>
-      {isLiked ? <button className='movie__like-btn_liked movie__like-btn'/>
-        : <button className='movie__like-btn'> Сохранить </button>}
+      {pathname === '/movies' ? buttonForMoviesPath : buttonForSavedMoviesPath}
     </article>
   );
 }
