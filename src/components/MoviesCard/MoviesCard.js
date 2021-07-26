@@ -16,7 +16,8 @@ function MoviesCard({ movie }) {
         <span className='movie__duration'>{movie.duration} минут</span>
       </div>
       <img className='movie__image' src={imageURL + movie.image.url} alt={movie.nameRU}/>
-      <button className={isLiked ? 'movie__like-btn_liked movie__like-btn' : 'movie__like-btn'} />
+      {isLiked ? <button className='movie__like-btn_liked movie__like-btn'/>
+        : <button className='movie__like-btn'> Сохранить </button>}
     </article>
   );
 }

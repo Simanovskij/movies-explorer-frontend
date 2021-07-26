@@ -49,10 +49,6 @@
   border: none;
   cursor: pointer;
   transition: opacity .4s linear;
-}
-
-.movie__like-btn::after {
-  content: 'Сохранить';
   font-weight: normal;
   font-size: 12px;
   line-height: 11px;
@@ -63,10 +59,6 @@
   background-image: url('../../images/like_icon.svg');
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.movie__like-btn_liked::after {
-  content: '';
 }
 
 .movie__like-btn:hover {
