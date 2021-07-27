@@ -2,11 +2,11 @@ import './Movies.css';
 import Searchform from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ isLoading, pathname }) {
+function Movies(props) {
   return (
     <main className='movies'>
       <Searchform/>
-      <MoviesCardList isLoading={isLoading} pathname={pathname}/>
+      <MoviesCardList isLoading={props.isLoading} pathname={props.pathname}/>
     </main>
   );
 }

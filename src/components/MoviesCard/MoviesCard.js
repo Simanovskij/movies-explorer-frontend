@@ -3,9 +3,10 @@ import './MoviesCard.css';
 function MoviesCard({ movie, pathname }) {
   const imageURL = 'https://api.nomoreparties.co';
   const isLiked = getRandom(1, 10) < 5;
-  const buttonForMoviesPath = isLiked ? <button className='movie__like-btn_liked movie__like-btn'/>
-    : <button className='movie__like-btn'> Сохранить </button>;
-  const buttonForSavedMoviesPath = '';
+  const buttonMoviesClass = isLiked ? 'movie__like-btn movie__like-btn_liked ' : 'movie__like-btn';
+  const buttonSavedMoviesClass = 'movie__like-btn movie__like-btn_disliked ';
+  const isMoviesPath = pathname === '/movies';
+
   function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
@@ -16,8 +17,10 @@ function MoviesCard({ movie, pathname }) {
         <span className='movie__duration'>{movie.duration} минут</span>
       </div>
       <img className='movie__image' src={imageURL + movie.image.url} alt={movie.nameRU}/>
-      {pathname === '/movies' ? buttonForMoviesPath : buttonForSavedMoviesPath}
+      <button type='button'
+              className={isMoviesPath ? buttonMoviesClass : buttonSavedMoviesClass}>{!isLiked && isMoviesPath ? 'Сохранить' : null}</button>
     </article>
+
   );
 }
 

@@ -50,3 +50,9 @@
   background-color: #2be080;
   transform: translateX(15px);
 }
+
+@media screen and (max-width: 960px) {
+  .filter-checkbox__title {
+    margin-left: 0;
+  }
+}

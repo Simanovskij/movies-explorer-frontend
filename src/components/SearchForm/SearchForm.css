@@ -48,11 +48,22 @@
   }
   .searchform__wrapper {
     margin-bottom: 38px;
+    padding-left: 18px;
   }
 }
 
 @media screen and (max-width: 960px) {
+  .searchform {
+    padding: 60px 0 57px;
+  }
   .searchform__wrapper {
     margin-bottom: 45px;
+    padding-left: 16px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .searchform {
+    padding-bottom: 44px;
   }
 }

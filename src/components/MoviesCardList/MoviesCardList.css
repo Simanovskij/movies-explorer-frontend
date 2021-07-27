@@ -1,5 +1,5 @@
 .movie-list {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 .movie-list__wrapper {
@@ -20,6 +20,9 @@
 }
 
 @media screen and (max-width: 460px){
+  .movie-list {
+    padding-top: 50px;
+  }
   .movie-list__wrapper{
     grid-template-columns: repeat(auto-fill, 300px);
     grid-gap: 16px 0;

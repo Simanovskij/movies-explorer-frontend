@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import moviesApi from '../../utils/MoviesApi';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         </Route>
         <Route exact path='/saved-movies'>
           <Header isLoggedIn={true}/>
+          <SavedMovies isLoading={isLoading} pathname={pathname}/>
           <Footer/>
         </Route>
       </Switch>

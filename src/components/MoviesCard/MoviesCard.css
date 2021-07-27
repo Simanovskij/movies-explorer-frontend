@@ -62,6 +62,12 @@
   background-repeat: no-repeat;
 }
 
+.movie__like-btn_disliked {
+  background-image: url('../../images/dislike_icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .movie__like-btn:hover {
   opacity: .8;
 }
