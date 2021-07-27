@@ -6,7 +6,7 @@ function SavedMovies(props) {
   return (
     <main className='saved-movies'>
       <Searchform/>
-      <MoviesCardList props={props}/>
+      <MoviesCardList isLoading={props.isLoading} pathname={props.pathname}/>
     </main>
   );
 }
