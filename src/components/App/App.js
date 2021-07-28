@@ -7,20 +7,24 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import moviesApi from '../../utils/MoviesApi';
+import Register from '../Register/Register';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const { pathname } = useLocation();
   const saveMovies = () => {
     setIsLoading(true);
-    moviesApi.getMovies().then((res) => {
-      const moviesForShow = res.slice(0, 13);
-      localStorage.setItem('movies', JSON.stringify(moviesForShow));
-    }).finally(() => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    });
+    moviesApi
+      .getMovies()
+      .then((res) => {
+        const moviesForShow = res.slice(0, 13);
+        localStorage.setItem('movies', JSON.stringify(moviesForShow));
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      });
   };
 
   useEffect(() => {
@@ -28,22 +32,25 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
+    <div className="App">
       <Switch>
-        <Route exact path='/'>
-          <Header/>
-          <Main/>
-          <Footer/>
+        <Route exact path="/">
+          <Header />
+          <Main />
+          <Footer />
         </Route>
-        <Route exact path='/movies'>
-          <Header isLoggedIn={true}/>
-          <Movies isLoading={isLoading} pathname={pathname}/>
-          <Footer/>
+        <Route path="/movies">
+          <Header isLoggedIn={true} />
+          <Movies isLoading={isLoading} pathname={pathname} />
+          <Footer />
         </Route>
-        <Route exact path='/saved-movies'>
-          <Header isLoggedIn={true}/>
-          <SavedMovies isLoading={isLoading} pathname={pathname}/>
-          <Footer/>
+        <Route path="/saved-movies">
+          <Header isLoggedIn={true} />
+          <SavedMovies isLoading={isLoading} pathname={pathname} />
+          <Footer />
+        </Route>
+        <Route path="/signup">
+          <Register />
         </Route>
       </Switch>
     </div>

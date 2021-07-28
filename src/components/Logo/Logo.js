@@ -1,0 +1,13 @@
+import { Link } from 'react-router-dom';
+import './Logo.css';
+import logo from '../../images/logo.svg';
+
+function Logo() {
+  return (
+    <Link to="/" className="logo">
+      <img className="logo-image" src={logo} alt="Лого" />
+    </Link>
+  );
+}
+
+export default Logo;

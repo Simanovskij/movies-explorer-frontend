@@ -1,22 +1,20 @@
 import './Header.css';
-import { Route, Switch, Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
+import { Link, Route, Switch } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
+import Logo from '../Logo/Logo';
 
 function Header({ isLoggedIn }) {
   return (
     <header className={isLoggedIn ? 'header header_type_logged' : 'header'}>
-      <Link to='/' className='header__logo-link'>
-        <img className='header__logo-image' src={logo} alt='Лого' />
-      </Link>
+      <Logo />
       <Switch>
-        <Route exact path='/'>
+        <Route exact path="/">
           <div>
-            <Link to='/signup' className='header__btn'>
+            <Link to="/signup" className="header__btn">
               Регистрация
             </Link>
-            <Link to='/signin' className='header__btn header__btn_type_signin'>
+            <Link to="/signin" className="header__btn header__btn_type_signin">
               Войти
             </Link>
           </div>
