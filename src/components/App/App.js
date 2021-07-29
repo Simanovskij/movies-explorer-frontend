@@ -1,5 +1,5 @@
 import { Route, Switch, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,10 +10,8 @@ import moviesApi from '../../utils/MoviesApi';
 import Register from '../Register/Register';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const { pathname } = useLocation();
   const saveMovies = () => {
-    setIsLoading(true);
     moviesApi
       .getMovies()
       .then((res) => {
@@ -21,9 +19,7 @@ function App() {
         localStorage.setItem('movies', JSON.stringify(moviesForShow));
       })
       .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setTimeout(() => {}, 1000);
       });
   };
 
@@ -32,24 +28,24 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Header />
           <Main />
           <Footer />
         </Route>
-        <Route path="/movies">
+        <Route path='/movies'>
           <Header isLoggedIn={true} />
-          <Movies isLoading={isLoading} pathname={pathname} />
+          <Movies pathname={pathname} />
           <Footer />
         </Route>
-        <Route path="/saved-movies">
+        <Route path='/saved-movies'>
           <Header isLoggedIn={true} />
-          <SavedMovies isLoading={isLoading} pathname={pathname} />
+          <SavedMovies pathname={pathname} />
           <Footer />
         </Route>
-        <Route path="/signup">
+        <Route path='/signup'>
           <Register />
         </Route>
       </Switch>
