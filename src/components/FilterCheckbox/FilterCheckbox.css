@@ -46,7 +46,7 @@
   border: 1px solid #ffffff;
 }
 
-.filter-checkbox__input:checked + .filter-chekbox__slider:before {
+.filter-checkbox__input:checked + .filter-checkbox__slider:before {
   background-color: #2be080;
   transform: translateX(15px);
 }
