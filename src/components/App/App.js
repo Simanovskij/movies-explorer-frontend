@@ -8,6 +8,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import moviesApi from '../../utils/MoviesApi';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   const { pathname } = useLocation();
@@ -19,7 +20,8 @@ function App() {
         localStorage.setItem('movies', JSON.stringify(moviesForShow));
       })
       .finally(() => {
-        setTimeout(() => {}, 1000);
+        setTimeout(() => {
+        }, 1000);
       });
   };
 
@@ -47,6 +49,9 @@ function App() {
         </Route>
         <Route path='/signup'>
           <Register />
+        </Route>
+        <Route path='/signin'>
+          <Login />
         </Route>
       </Switch>
     </div>
