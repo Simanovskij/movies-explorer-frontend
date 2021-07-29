@@ -4,9 +4,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies(props) {
   return (
-    <main className="saved-movies">
+    <main className='saved-movies'>
       <Searchform />
-      <MoviesCardList isLoading={props.isLoading} pathname={props.pathname} />
+      <MoviesCardList pathname={props.pathname} />
     </main>
   );
 }
