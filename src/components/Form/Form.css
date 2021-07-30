@@ -26,6 +26,11 @@
   transition: opacity 0.4s linear;
 }
 
+.form__submit-btn_margin {
+  margin-top: 157px;
+}
+
+
 .form__submit-btn:hover {
   opacity: .8;
 }

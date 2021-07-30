@@ -16,6 +16,7 @@ function Login() {
         inviteText='Ещё не зарегистрированы?'
         linkText='Регистрация'
         forwardLink='/signup'
+        submitMargin={true}
       >
         <Input type='email' id='email' title='E-mail' />
         <Input
