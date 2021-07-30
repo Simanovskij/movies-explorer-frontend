@@ -1,13 +1,9 @@
-.logo {
-  min-width: 100px;
-}
-
 .logo-image {
   width: 38px;
   height: 38px;
   transition: opacity 0.4s linear;
 }
 
-.logo:hover {
+.logo-image:hover {
   opacity: 0.8;
 }

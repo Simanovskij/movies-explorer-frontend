@@ -57,3 +57,28 @@
 .form__link:hover {
   opacity: .7;
 }
+
+@media screen and (max-width: 460px) {
+  .form__title {
+    margin: 50px 0 80px;
+    text-align: center;
+  }
+
+  .form__invite {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .form__submit-btn {
+    margin-top: 157px;
+  }
+
+  .form__submit-btn_margin {
+    margin-top: 245px;
+  }
+
+  .form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

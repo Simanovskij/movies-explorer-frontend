@@ -18,10 +18,10 @@ function Login() {
         forwardLink='/signup'
         submitMargin={true}
       >
-        <Input type='email' id='email' title='E-mail' />
+        <Input type='email' name='email' title='E-mail' />
         <Input
           type='password'
-          id='password'
+          name='password'
           title='Пароль'
           error='Что-то пошло не так...'
         />

@@ -2,15 +2,15 @@ import './Input.css';
 
 function Input(props) {
   return (
-    <label className="input">
+    <label className='input'>
       {props.title}
       <input
         type={props.type}
-        id={props.id}
+        name={props.name}
         placeholder={props.placeholder}
-        className="input__field"
+        className='input__field'
       />
-      <span className="input__error">{props.error}</span>
+      <span className='input__error'>{props.error}</span>
     </label>
   );
 }

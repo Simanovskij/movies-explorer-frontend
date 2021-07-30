@@ -15,3 +15,13 @@
   width: 100%;
   justify-content: flex-start;
 }
+
+@media screen and (max-width: 460px) {
+  .enter-page {
+    max-width: 260px;
+  }
+
+  .enter-page__logo {
+    justify-content: center;
+  }
+}
