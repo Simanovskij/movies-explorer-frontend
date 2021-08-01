@@ -17,7 +17,6 @@ function MoviesCardList({ pathname }) {
         ))}
       </div>
       {pathname === '/movies' && <MoreButton />}
-      )}
     </section>
   );
 }

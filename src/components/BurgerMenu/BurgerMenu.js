@@ -3,18 +3,30 @@ import './BurgerMenu.css';
 
 function BurgerMenu({ isOpen }) {
   return (
-    <div className="burger-menu">
-      <div
-        className={
-          isOpen ? 'burger-menu__wrapper burger-menu__wrapper_open' : 'burger-menu__wrapper'
-        }
-      >
-        <ul className="burger-menu__list">
-          <li className="burger-menu__item">
-            <NavLink to="/">Главная</NavLink>
-          </li>
-        </ul>
-      </div>
+    <div className={isOpen ? 'burger-menu burger-menu_open' : 'burger-menu'}>
+      <nav className='burger-menu__list'>
+        <NavLink
+          className='burger-menu__item'
+          activeClassName='burger-menu__item_active'
+          to='/'
+        >
+          Главная
+        </NavLink>
+        <NavLink
+          className='burger-menu__item'
+          activeClassName='burger-menu__item_active'
+          to='/'
+        >
+          Фильмы
+        </NavLink>
+        <NavLink
+          className='burger-menu__item'
+          activeClassName='burger-menu__item_active'
+          to='/'
+        >
+          Сохраненные фильмы
+        </NavLink>
+      </nav>
     </div>
   );
 }

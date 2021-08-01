@@ -13,6 +13,10 @@
   background-color: #fff;
 }
 
+.header__logo {
+  min-width: 116px;
+}
+
 .header__btn {
   text-decoration: none;
   color: #fff;

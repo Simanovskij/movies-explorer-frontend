@@ -1,22 +1,18 @@
-.burger-menu {
-  visibility: hidden;
-}
 
-.burger-menu__wrapper {
+.burger-menu {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
-  display: flex;
-  transform: translateX(100%);
   transition: transform 0.4s linear;
-  z-index: 100;
+  z-index: 1;
   height: 100vh;
   width: 67vw;
   background: red;
 }
 
-.burger-menu__wrapper_open {
-  transform: translateX(0);
+.burger-menu_open {
+  display: flex;
 }
 
 .hamburger-react {

@@ -10,6 +10,7 @@ import moviesApi from '../../utils/MoviesApi';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const { pathname } = useLocation();
@@ -21,8 +22,7 @@ function App() {
         localStorage.setItem('movies', JSON.stringify(moviesForShow));
       })
       .finally(() => {
-        setTimeout(() => {
-        }, 1000);
+        setTimeout(() => {}, 1000);
       });
   };
 
@@ -57,6 +57,9 @@ function App() {
         <Route path='/profile'>
           <Header isLoggedIn={true} />
           <Profile />
+        </Route>
+        <Route path='*'>
+          <NotFound />
         </Route>
       </Switch>
     </div>

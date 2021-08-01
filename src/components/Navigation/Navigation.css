@@ -1,7 +1,3 @@
-.navigation {
-  display: flex;
-}
-
 .navigation__link {
   text-decoration: none;
   font-style: normal;
