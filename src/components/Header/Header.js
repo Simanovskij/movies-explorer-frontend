@@ -45,7 +45,7 @@ function Header({ isLoggedIn }) {
         <Route path={['/movies', '/saved-movies', '/profile']}>
           {isMobile ? (
             <>
-              <BurgerButton onClick={openBurgerHandler} /> <BurgerMenu
+              <BurgerButton onClick={openBurgerHandler} isOpen={isBurgerMenuOpen} /> <BurgerMenu
               isOpen={isBurgerMenuOpen} />{' '}
             </>
           ) : (
@@ -56,7 +56,6 @@ function Header({ isLoggedIn }) {
           )}
         </Route>
       </Switch>
-      {console.log(isBurgerMenuOpen)}
     </header>
   );
 }

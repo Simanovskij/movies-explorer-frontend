@@ -17,14 +17,29 @@ function Register() {
         linkText='Войти'
         forwardLink='/signin'
       >
-        <Input type='text' name='name' title='Имя' />
-        <Input type='email' name='email' title='E-mail' />
+        <Input
+          type='text'
+          name='name'
+          title='Имя'
+          placeholder='Иванов Иван'
+          minLength='2'
+          maxLength='20'
+          required />
+        <Input
+          type='email'
+          name='email'
+          title='E-mail'
+          placeholder='ivanov.i@yandex.ru'
+          required />
         <Input
           type='password'
           name='password'
           title='Пароль'
           error='Что-то пошло не так...'
-        />
+          placeholder='Введите пароль'
+          minLength='8'
+          maxlength='20'
+          required />
       </Form>
     </section>
   );
