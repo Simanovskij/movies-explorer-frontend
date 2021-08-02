@@ -45,8 +45,11 @@ function Header({ isLoggedIn }) {
         <Route path={['/movies', '/saved-movies', '/profile']}>
           {isMobile ? (
             <>
-              <BurgerButton onClick={openBurgerHandler} isOpen={isBurgerMenuOpen} /> <BurgerMenu
-              isOpen={isBurgerMenuOpen} />{' '}
+              <BurgerButton
+                onClick={openBurgerHandler}
+                isOpen={isBurgerMenuOpen}
+              />{' '}
+              <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
             </>
           ) : (
             <>

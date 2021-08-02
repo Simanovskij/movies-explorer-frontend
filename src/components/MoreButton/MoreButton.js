@@ -3,7 +3,7 @@ import './MoreButton.css';
 function MoreButton() {
   return (
     <>
-      <button type="button" className="more-btn">
+      <button type='button' className='more-btn'>
         Ещё
       </button>
     </>

@@ -14,21 +14,21 @@ function MoviesCard({ movie, pathname }) {
   }
 
   return (
-    <article className="movie">
-      <div className="movie__header">
-        <h3 className="movie__title">{movie.nameRU}</h3>
-        <span className="movie__duration">{movie.duration} минут</span>
+    <article className='movie'>
+      <div className='movie__header'>
+        <h3 className='movie__title'>{movie.nameRU}</h3>
+        <span className='movie__duration'>{movie.duration} минут</span>
       </div>
       <img
-        className="movie__image"
+        className='movie__image'
         src={imageURL + movie.image.url}
         alt={movie.nameRU}
       />
       <button
-        type="button"
+        type='button'
         className={isMoviesPath ? buttonMoviesClass : buttonSavedMoviesClass}
       >
-        {!isLiked && isMoviesPath ? 'Сохранить' : null}
+        {!isLiked && isMoviesPath && 'Сохранить'}
       </button>
     </article>
   );

@@ -6,10 +6,11 @@ function BurgerButton({ onClick, isOpen }) {
   };
 
   return (
-    <div onClick={clickHandler}
-         className={
-           isOpen ? 'burger-button burger-button_clicked' : 'burger-button'
-         }
+    <div
+      onClick={clickHandler}
+      className={
+        isOpen ? 'burger-button burger-button_clicked' : 'burger-button'
+      }
     ></div>
   );
 }

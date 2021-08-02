@@ -7,10 +7,7 @@ function BurgerMenu({ isOpen }) {
     <div className={isOpen ? 'popup popup_opened' : 'popup'}>
       <div className={isOpen ? 'burger-menu burger-menu_open' : 'burger-menu'}>
         <nav className='burger-menu__list'>
-          <NavLink
-            className='burger-menu__item'
-            to='/'
-          >
+          <NavLink className='burger-menu__item' to='/'>
             Главная
           </NavLink>
           <NavLink

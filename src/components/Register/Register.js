@@ -21,16 +21,18 @@ function Register() {
           type='text'
           name='name'
           title='Имя'
-          placeholder='Иванов Иван'
+          placeholder='Введите имя'
           minLength='2'
           maxLength='20'
-          required />
+          required
+        />
         <Input
           type='email'
           name='email'
           title='E-mail'
-          placeholder='ivanov.i@yandex.ru'
-          required />
+          placeholder='Введите почту'
+          required
+        />
         <Input
           type='password'
           name='password'
@@ -39,7 +41,8 @@ function Register() {
           placeholder='Введите пароль'
           minLength='8'
           maxlength='20'
-          required />
+          required
+        />
       </Form>
     </section>
   );

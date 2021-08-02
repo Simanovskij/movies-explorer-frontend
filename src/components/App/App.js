@@ -14,16 +14,15 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
   const { pathname } = useLocation();
+  // запрос фильмов для этапа верстки
   const saveMovies = () => {
     moviesApi
       .getMovies()
       .then((res) => {
         const moviesForShow = res.slice(0, 13);
         localStorage.setItem('movies', JSON.stringify(moviesForShow));
-      })
-      .finally(() => {
-        setTimeout(() => {}, 1000);
-      });
+      }) // eslint-disable-next-line no-console
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -36,14 +35,17 @@ function App() {
         <Route exact path='/'>
           <Header />
           <Main />
+          <Footer />
         </Route>
         <Route path='/movies'>
           <Header isLoggedIn={true} />
           <Movies pathname={pathname} />
+          <Footer />
         </Route>
         <Route path='/saved-movies'>
           <Header isLoggedIn={true} />
           <SavedMovies pathname={pathname} />
+          <Footer />
         </Route>
         <Route path='/signup'>
           <Register />
@@ -54,14 +56,12 @@ function App() {
         <Route path='/profile'>
           <Header isLoggedIn={true} />
           <Profile />
+          <Footer />
         </Route>
-        <Route path='*'>
-          <NotFound />
+        <Route>
+          <NotFound path='*' />
         </Route>
       </Switch>
-      <Route path={['/', 'movies', 'saved-movies']}>
-        <Footer />
-      </Route>
     </div>
   );
 }
