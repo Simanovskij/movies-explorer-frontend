@@ -30,7 +30,7 @@ function Portfolio() {
             className='portfolio__list-link'
             target='_blank'
             rel='noreferrer'
-            href='https://simanovskij.github.io/how-to-learn/'
+            href='https://github.com/Simanovskij/react-mesto-api-full'
           >
             Одностраничное приложение
           </a>

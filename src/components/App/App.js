@@ -36,17 +36,14 @@ function App() {
         <Route exact path='/'>
           <Header />
           <Main />
-          <Footer />
         </Route>
         <Route path='/movies'>
           <Header isLoggedIn={true} />
           <Movies pathname={pathname} />
-          <Footer />
         </Route>
         <Route path='/saved-movies'>
           <Header isLoggedIn={true} />
           <SavedMovies pathname={pathname} />
-          <Footer />
         </Route>
         <Route path='/signup'>
           <Register />
@@ -62,6 +59,9 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+      <Route path={['/', 'movies', 'saved-movies']}>
+        <Footer />
+      </Route>
     </div>
   );
 }
