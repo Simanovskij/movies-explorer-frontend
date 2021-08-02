@@ -22,6 +22,10 @@ function Header({ isLoggedIn }) {
 
   const isMobile = width <= 960;
 
+  const openBurgerHandler = () => {
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  };
+
   return (
     <header className={isLoggedIn ? 'header header_type_logged' : 'header'}>
       <div className='header__logo'>
@@ -41,7 +45,8 @@ function Header({ isLoggedIn }) {
         <Route path={['/movies', '/saved-movies', '/profile']}>
           {isMobile ? (
             <>
-              <BurgerButton /> <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
+              <BurgerButton onClick={openBurgerHandler} /> <BurgerMenu
+              isOpen={isBurgerMenuOpen} />{' '}
             </>
           ) : (
             <>
@@ -51,6 +56,7 @@ function Header({ isLoggedIn }) {
           )}
         </Route>
       </Switch>
+      {console.log(isBurgerMenuOpen)}
     </header>
   );
 }

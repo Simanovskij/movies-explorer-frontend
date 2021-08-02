@@ -1,18 +1,19 @@
 import './BurgerButton.css';
 import { useState } from 'react';
 
-function BurgerButton() {
-  const [isClicked, setisClicked] = useState(false);
+function BurgerButton({ onClick }) {
+  const [isClicked, setIsClicked] = useState(false);
 
   const clickHandler = () => {
-    setisClicked(!isClicked);
+    onClick();
+    setIsClicked(!isClicked);
   };
+
   return (
-    <div
-      className={
-        isClicked ? 'burger-button burger-button_clicked' : 'burger-button'
-      }
-      onClick={clickHandler}
+    <div onClick={clickHandler}
+         className={
+           isClicked ? 'burger-button burger-button_clicked' : 'burger-button'
+         }
     ></div>
   );
 }
