@@ -18,6 +18,7 @@ class MainApi {
       body: JSON.stringify({
         password: data.password,
         email: data.email,
+        name: data.name,
       }),
     });
     return this._checkResponse(response);
@@ -25,7 +26,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'api.kinchiki.nomoredomains.club',
+  baseUrl: 'https://api.kinchiki.nomoredomains.club',
   headers: { 'Content-Type': 'application/json' },
 });
 

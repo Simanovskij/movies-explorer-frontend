@@ -37,11 +37,10 @@ function App() {
 
   async function onRegister(data) {
     try {
-      const user = mainApi.register(data);
+      const user = await mainApi.register(data);
+      console.log(user);
     } catch (e) {
-      setError({
-        registerError: 'При регистрации пользователя произошла ошибка',
-      });
+      console.log(e);
     }
   }
 
