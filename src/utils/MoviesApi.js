@@ -10,13 +10,14 @@ class MoviesApi {
     throw new Error(`${res.status}`);
   };
 
-  getMovies() {
-    return fetch(`${this._baseUrl}`).then((res) => this._checkResponse(res));
+  async getMovies() {
+    const response = await fetch(`${this._baseUrl}`);
+    return this._checkResponse(response);
   }
 }
 
 const
   moviesApi = new MoviesApi({
-    baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+    baseUrl: 'https://api.nomoreparties.co/beatfilm-movie',
   });
 export default moviesApi;

@@ -14,16 +14,17 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
   const { pathname } = useLocation();
+
   // запрос фильмов для этапа верстки
-  const saveMovies = () => {
-    moviesApi
-      .getMovies()
-      .then((res) => {
-        const moviesForShow = res.slice(0, 13);
-        localStorage.setItem('movies', JSON.stringify(moviesForShow));
-      }) // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
-  };
+  async function saveMovies() {
+    try {
+      const allMovies = await moviesApi.getMovies();
+      const moviesForShow = allMovies.slice(0, 13);
+      localStorage.setItem('movies', JSON.stringify(moviesForShow));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
     saveMovies();
