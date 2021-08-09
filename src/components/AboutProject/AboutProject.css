@@ -1,0 +1,114 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #000;
+}
+
+.about-project__article:first-of-type {
+  margin-right: 30px;
+}
+
+.about-project__arcticle-container {
+  display: flex;
+  padding: 70px 0 110px;
+  justify-content: space-between;
+}
+
+.about-project__article-title {
+  margin: 0 0 26px;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.about-project__article-text {
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about-project__duration {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: repeat(2, 1fr);
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.about-project__backend {
+  background: #2be080;
+  padding: 9px 0;
+}
+
+.about-project__frontend {
+  background: #f2f2f2;
+  padding: 9px 0;
+}
+
+.about-project__duration-title {
+  font-weight: 500;
+  color: #a0a0a0;
+  padding-top: 14px;
+}
+
+@media screen and (max-width: 960px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+  .about-project__arcticle-container {
+    padding-bottom: 93px;
+  }
+  .about-project__article-title {
+    margin-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+  .about-project__title {
+    padding-bottom: 28px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .about-project__arcticle-container {
+    flex-direction: column;
+    padding: 60px 0;
+  }
+  .about-project__article:first-of-type {
+    margin: 0 0 56px;
+  }
+  .about-project__article-title {
+    margin-bottom: 16px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .about-project__article-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-project__duration {
+    font-size: 11px;
+    line-height: 13px;
+    grid-template-columns: 30% 70%;
+  }
+  .about-project__backend,
+  .about-project__frontend {
+    padding: 11px 0;
+  }
+  .about-project__duration-title {
+    padding-top: 10px;
+  }
+}

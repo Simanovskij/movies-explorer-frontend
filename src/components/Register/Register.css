@@ -1,0 +1,27 @@
+.enter-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 396px;
+  width: 100%;
+  min-height: 100vh;
+  align-self: center;
+}
+
+.enter-page__logo {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width: 460px) {
+  .enter-page {
+    max-width: 260px;
+  }
+
+  .enter-page__logo {
+    justify-content: center;
+  }
+}

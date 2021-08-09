@@ -1,0 +1,28 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #A0A0A0;
+}
+
+.input__field {
+  margin-top: 10px;
+  padding: 15px;
+  background: #F9F9F9;
+  border-radius: 8px;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  border: none;
+  outline: none;
+}
+
+.input__error {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #FF3055;
+  margin: 10px 0 10px;
+}
