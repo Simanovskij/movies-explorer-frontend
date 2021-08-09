@@ -36,7 +36,6 @@ function Register() {
           placeholder='Введите имя'
           minLength='2'
           maxLength='20'
-          required
           onChange={handleChange}
           value={values.name}
         />
@@ -45,7 +44,6 @@ function Register() {
           name='email'
           title='E-mail'
           placeholder='Введите почту'
-          required
           onChange={handleChange}
           value={values.email}
         />
@@ -57,11 +55,11 @@ function Register() {
           placeholder='Введите пароль'
           minLength='8'
           maxlength='20'
-          required
           onChange={handleChange}
           value={values.password}
         />
       </Form>
+      {console.log(isValid)}
     </section>
   );
 }

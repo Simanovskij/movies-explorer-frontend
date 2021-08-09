@@ -15,6 +15,9 @@ function Input(props) {
         className='input__field'
         value={props.value || ''}
         onChange={handleChange}
+        minLength={props.minLength}
+        maxLength={props.maxLength}
+        required
       />
       <span className='input__error'>{props.error}</span>
     </label>
