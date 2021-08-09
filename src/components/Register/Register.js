@@ -2,8 +2,19 @@ import './Register.css';
 import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
+import UseForm from '../../utils/UseForm';
 
 function Register() {
+  const {
+    values, handleChange, errors, isValid, resetForm,
+  } = UseForm();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(values);
+    resetForm();
+  }
+
   return (
     <section className='enter-page'>
       <div className='enter-page__logo'>
@@ -16,6 +27,7 @@ function Register() {
         inviteText='Уже зарегистрированы?'
         linkText='Войти'
         forwardLink='/signin'
+        onSubmit={handleSubmit}
       >
         <Input
           type='text'
@@ -25,6 +37,8 @@ function Register() {
           minLength='2'
           maxLength='20'
           required
+          onChange={handleChange}
+          value={values.name}
         />
         <Input
           type='email'
@@ -32,6 +46,8 @@ function Register() {
           title='E-mail'
           placeholder='Введите почту'
           required
+          onChange={handleChange}
+          value={values.email}
         />
         <Input
           type='password'
@@ -42,6 +58,8 @@ function Register() {
           minLength='8'
           maxlength='20'
           required
+          onChange={handleChange}
+          value={values.password}
         />
       </Form>
     </section>

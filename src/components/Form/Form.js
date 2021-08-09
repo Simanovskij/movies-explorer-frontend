@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Form(props) {
   return (
-    <form className='form' name={props.name}>
+    <form className='form' name={props.name} onSubmit={props.onSubmit}>
       <h2 className='form__title'>{props.title}</h2>
       {props.children}
       <button

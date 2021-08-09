@@ -34,19 +34,13 @@ function App() {
     <div className='App'>
       <Switch>
         <Route exact path='/'>
-          <Header />
           <Main />
-          <Footer />
         </Route>
         <Route path='/movies'>
-          <Header isLoggedIn={true} />
-          <Movies pathname={pathname} />
-          <Footer />
+          <Movies pathname={pathname} isLoggedIn={true} />
         </Route>
         <Route path='/saved-movies'>
-          <Header isLoggedIn={true} />
-          <SavedMovies pathname={pathname} />
-          <Footer />
+          <SavedMovies pathname={pathname} isLoggedIn={true} />
         </Route>
         <Route path='/signup'>
           <Register />
