@@ -4,14 +4,12 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import UseForm from '../../utils/UseForm';
 
-function Register() {
-  const {
-    values, handleChange, errors, isValid, resetForm,
-  } = UseForm();
+function Register({ onRegister }) {
+  const { values, handleChange, errors, isValid, resetForm } = UseForm();
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(values);
+    onRegister(values);
     resetForm();
   }
 

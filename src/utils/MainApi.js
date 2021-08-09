@@ -19,7 +19,6 @@ class MainApi {
         password: data.password,
         email: data.email,
       }),
-      credentials: 'include',
     });
     return this._checkResponse(response);
   }
