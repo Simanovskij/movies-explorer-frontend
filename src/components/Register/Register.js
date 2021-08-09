@@ -38,6 +38,7 @@ function Register() {
           maxLength='20'
           onChange={handleChange}
           value={values.name}
+          error={errors.name}
         />
         <Input
           type='email'
@@ -46,6 +47,7 @@ function Register() {
           placeholder='Введите почту'
           onChange={handleChange}
           value={values.email}
+          error={errors.email}
         />
         <Input
           type='password'
@@ -57,6 +59,7 @@ function Register() {
           maxlength='20'
           onChange={handleChange}
           value={values.password}
+          error={errors.password}
         />
       </Form>
       {console.log(isValid)}
