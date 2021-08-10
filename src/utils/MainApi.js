@@ -23,6 +23,27 @@ class MainApi {
     });
     return this._checkResponse(response);
   }
+
+  async login(data) {
+    const response = await fetch(`${this._baseUrl}/signin`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        password: data.password,
+        email: data.email,
+      }),
+    });
+    return this._checkResponse(response);
+  }
+
+  async getUser() {
+    const response = await fetch(`${this._baseUrl}/me`, {
+      method: 'GET',
+      headers: this._headers,
+      credentials: 'include',
+    });
+    return this._checkResponse(response);
+  }
 }
 
 const mainApi = new MainApi({

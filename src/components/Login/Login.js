@@ -2,8 +2,23 @@ import '../Register/Register.css';
 import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
+import UseForm from '../../utils/UseForm';
 
-function Login() {
+function Login({ onLogin }) {
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+  } = UseForm();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin(values);
+    resetForm();
+  }
+
   return (
     <section className='enter-page'>
       <div className='enter-page__logo'>
@@ -16,13 +31,18 @@ function Login() {
         inviteText='Ещё не зарегистрированы?'
         linkText='Регистрация'
         forwardLink='/signup'
-        submitMargin={true}
+        isMargin={true}
+        isValid={isValid}
+        onSubmit={handleSubmit}
       >
         <Input
           type='email'
           name='email'
           title='E-mail'
           placeholder='Введите почту'
+          onChange={handleChange}
+          value={values.email}
+          error={errors.email}
         />
         <Input
           type='password'
@@ -31,8 +51,9 @@ function Login() {
           placeholder='Введите пароль'
           minLength='8'
           maxlength='20'
-          required
-          error='Что-то пошло не так...'
+          onChange={handleChange}
+          value={values.password}
+          error={errors.password}
         />
       </Form>
     </section>

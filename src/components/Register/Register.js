@@ -5,7 +5,13 @@ import Input from '../Input/Input';
 import UseForm from '../../utils/UseForm';
 
 function Register({ onRegister }) {
-  const { values, handleChange, errors, isValid, resetForm } = UseForm();
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+  } = UseForm();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,6 +32,7 @@ function Register({ onRegister }) {
         linkText='Войти'
         forwardLink='/signin'
         onSubmit={handleSubmit}
+        isValid={isValid}
       >
         <Input
           type='text'
@@ -51,7 +58,6 @@ function Register({ onRegister }) {
           type='password'
           name='password'
           title='Пароль'
-          error='Что-то пошло не так...'
           placeholder='Введите пароль'
           minLength='8'
           maxlength='20'
