@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
@@ -16,25 +17,51 @@ import ProtectedRoute from '../ProtectedRoute';
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [currentUser, setCurrentUser] = useState({});
   const [error, setError] = useState({
     registerError: null,
   });
 
-  // запрос фильмов для этапа верстки
-  // async function saveMovies() {
-  //   try {
-  //     const allMovies = await moviesApi.getMovies();
-  //     const moviesForShow = allMovies.slice(0, 13);
-  //     localStorage.setItem('movies', JSON.stringify(moviesForShow));
-  //   } catch (e) {
-  //     console.log(e);
+  // const checkToken = useCallback(async () => {
+  //   if (localStorage.checked === 'true') {
+  //     try {
+  //       const user = await mainApi.checkToken();
+  //       setIsLoggedIn(true);
+  //       history.push('/movies');
+  //       setCurrentUser(user);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
   //   }
-  // }
-  //
-  // useEffect(() => {
-  //   saveMovies();
-  // }, []);
+  // }, [history]);
+
+  useEffect(async () => {
+    if (localStorage.checked === 'true') {
+      try {
+        const user = await mainApi.checkToken();
+        setIsLoggedIn(true);
+        history.push('/movies');
+        setCurrentUser(user);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, []);
+
+  async function saveMovies() {
+    try {
+      const allMovies = await moviesApi.getMovies();
+      const moviesForShow = allMovies.slice(0, 13);
+      localStorage.setItem('movies', JSON.stringify(moviesForShow));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    saveMovies();
+  }, []);
 
   async function onRegister(data) {
     try {
@@ -50,16 +77,11 @@ function App() {
       await mainApi.login(data);
       setIsLoggedIn(true);
       history.push('/movies');
+      localStorage.setItem('checked', 'true');
     } catch (e) {
       console.log(e);
     }
   }
-
-  useEffect(async () => {
-    await mainApi.getUser();
-    setIsLoggedIn(true);
-    history.push('/movies');
-  }, [history]);
 
   return (
     <div className='App'>
@@ -73,14 +95,19 @@ function App() {
           isLoggedIn={isLoggedIn}
           component={Movies}
         />
-        <Route path='/saved-movies'>
-          <SavedMovies pathname={pathname} isLoggedIn={true} />
-        </Route>
+        <ProtectedRoute
+          path='/saved-movies'
+          pathname={pathname}
+          isLoggedIn={isLoggedIn}
+          component={SavedMovies}
+        />
         <Route path='/signup'>
-          <Register onRegister={onRegister} />
+          <Register
+            onRegister={onRegister} />
         </Route>
         <Route path='/signin'>
-          <Login onLogin={onLogin} />
+          <Login
+            onLogin={onLogin} />
         </Route>
         <Route path='/profile'>
           <Header isLoggedIn={true} />

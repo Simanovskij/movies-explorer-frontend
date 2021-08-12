@@ -15,6 +15,7 @@ class MainApi {
     const response = await fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         password: data.password,
         email: data.email,
@@ -28,6 +29,7 @@ class MainApi {
     const response = await fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         password: data.password,
         email: data.email,
@@ -36,8 +38,8 @@ class MainApi {
     return this._checkResponse(response);
   }
 
-  async getUser() {
-    const response = await fetch(`${this._baseUrl}/me`, {
+  async checkToken() {
+    const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers,
       credentials: 'include',
