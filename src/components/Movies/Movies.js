@@ -5,7 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Movies({ isLoggedIn, pathname }) {
+function Movies({ isLoggedIn, pathname, isMain }) {
   const MoviesCardList = lazy(
     () => new Promise((resolve) => setTimeout(() => resolve(import('../MoviesCardList/MoviesCardList')), 1000)),
   );

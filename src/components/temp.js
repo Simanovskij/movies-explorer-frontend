@@ -1,11 +1,12 @@
 import './Header.css';
+import { Route, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import Logo from '../Logo/Logo';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import BurgerButton from '../BurgerButton/BurgerButton';
 
-function Header({ isLoggedIn, pathname }) {
+function Header({ isLoggedIn }) {
   const [width, setWidth] = useState(document.documentElement.clientWidth);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
@@ -24,22 +25,31 @@ function Header({ isLoggedIn, pathname }) {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
-  const isMain = pathname !== ('/movies' || '/saved-movies' || '/profile');
-
   return (
-    <header className={isMain ? 'header header_type_main' : 'header'}>
+    <header className={isLoggedIn ? 'header header_type_main' : 'header'}>
       <div className='header__logo'>
         <Logo />
       </div>
-      {isMobile && isLoggedIn
-        ? <>
-          <BurgerButton
-            onClick={openBurgerHandler}
-            isOpen={isBurgerMenuOpen}
-          />{' '}
-          <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
-        </>
-        : <Navigation isMain={isMain} isLoggedIn={isLoggedIn} />}
+      <Switch>
+        <Route exact path='/'>
+        </Route>
+        <Route path={['/movies', '/saved-movies', '/profile']}>
+          {isMobile ? (
+            <>
+              <BurgerButton
+                onClick={openBurgerHandler}
+                isOpen={isBurgerMenuOpen}
+              />{' '}
+              <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
+            </>
+          ) : (
+            <>
+              {' '}
+              <Navigation />
+            </>
+          )}
+        </Route>
+      </Switch>
     </header>
   );
 }

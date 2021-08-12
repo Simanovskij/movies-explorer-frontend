@@ -87,7 +87,7 @@ function App() {
     <div className='App'>
       <Switch>
         <Route exact path='/'>
-          <Main />
+          <Main isLoggedIn={false} pathname={pathname} />
         </Route>
         <ProtectedRoute
           path='/movies'

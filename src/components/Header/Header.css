@@ -9,8 +9,8 @@
   box-sizing: border-box;
 }
 
-.header_type_logged {
-  background-color: #fff;
+.header_type_main {
+  background-color: #073042;
 }
 
 .header__logo {

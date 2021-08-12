@@ -6,9 +6,9 @@ import Portfolio from '../Portfolio/Portfolio';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Main({ isLoggedIn }) {
+function Main({ isLoggedIn, pathname }) {
   return (<>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} pathname={pathname} />
       <main>
         <Promo />
         <AboutProject />
