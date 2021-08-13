@@ -36,6 +36,7 @@ function Header({ isLoggedIn, pathname }) {
           <BurgerButton
             onClick={openBurgerHandler}
             isOpen={isBurgerMenuOpen}
+            isMain={isMain}
           />{' '}
           <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
         </>

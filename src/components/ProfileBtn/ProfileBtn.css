@@ -20,6 +20,10 @@
   transition: opacity 0.4s linear;
 }
 
+.profile-btn__link_type_main {
+  color: #ffffff;
+}
+
 .profile-btn__link:hover {
   opacity: 0.7;
 }

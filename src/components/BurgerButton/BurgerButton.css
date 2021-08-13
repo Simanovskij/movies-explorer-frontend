@@ -10,6 +10,10 @@
   transition: all .2s ease-in-out;
 }
 
+.burger-button_type_main, .burger-button_type_main:after, .burger-button_type_main:before {
+  border-color: #ffffff;
+}
+
 .burger-button:after, .burger-button:before {
   position: absolute;
   content: "";

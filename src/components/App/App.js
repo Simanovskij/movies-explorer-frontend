@@ -17,7 +17,7 @@ import ProtectedRoute from '../ProtectedRoute';
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
   const [error, setError] = useState({
     registerError: null,
@@ -87,7 +87,7 @@ function App() {
     <div className='App'>
       <Switch>
         <Route exact path='/'>
-          <Main isLoggedIn={false} pathname={pathname} />
+          <Main isLoggedIn={true} pathname={pathname} />
         </Route>
         <ProtectedRoute
           path='/movies'

@@ -28,6 +28,10 @@
   font-weight: 500;
 }
 
+.navigation__link_type_main {
+  color: #ffffff;
+}
+
 .navigation__link:first-child {
   margin-right: 16px;
 }
