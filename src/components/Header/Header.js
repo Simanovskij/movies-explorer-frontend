@@ -24,7 +24,7 @@ function Header({ isLoggedIn, pathname }) {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
-  const isMain = pathname !== ('/movies' || '/saved-movies' || '/profile');
+  const isMain = pathname === '/';
 
   return (
     <header className={isMain ? 'header header_type_main' : 'header'}>

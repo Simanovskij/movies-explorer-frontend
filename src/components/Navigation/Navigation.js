@@ -1,18 +1,17 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navigation.css';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
 
 function Navigation({ isMain, isLoggedIn }) {
-  const { pathname } = useLocation();
-
   return (
     <nav className='navigation'>
       {isMain && !isLoggedIn && <>
-        <ul>
-          <li><Link to='/signup' className='header__btn'>
+        <ul className='navigation__links'>
+          <li><Link to='/signup' className='navigation__link-main'>
             Регистрация
           </Link></li>
-          <li><Link to='/signin' className='header__btn header__btn_type_signin'>
+          <li><Link to='/signin'
+                    className='navigation__link-main navigation__link-main_type_signin'>
             Войти
           </Link></li>
         </ul>

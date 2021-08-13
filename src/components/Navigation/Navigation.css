@@ -1,3 +1,15 @@
+.navigation {
+  display: contents;
+}
+
+.navigation__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+
 .navigation__link {
   text-decoration: none;
   font-style: normal;
@@ -20,6 +32,30 @@
   margin-right: 16px;
 }
 
-.navigation__link:last-of-type {
-  margin-right: 0;
+.navigation__link-main {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: opacity 0.4s linear;
+}
+
+.navigation__link-main {
+  opacity: 0.8;
+}
+
+.navigation__link-main_type_signin {
+  color: #000;
+  background-color: #2be080;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 460px) {
+  .navigation__link-main {
+    padding: 5px 12px;
+    font-size: 10px;
+  }
 }
