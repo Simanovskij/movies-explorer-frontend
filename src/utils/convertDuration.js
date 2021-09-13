@@ -3,7 +3,8 @@ export default function convertDuration(mins) {
   const minutes = mins % 60;
   if (hours < 1) {
     return `${minutes} минут`;
-  } if (minutes == 0) {
+  }
+  if (minutes === 0) {
     return `${hours}ч.`;
   }
   return `${hours}ч. ${minutes}мин`;
