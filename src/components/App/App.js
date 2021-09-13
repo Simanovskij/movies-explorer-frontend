@@ -1,5 +1,5 @@
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -13,30 +13,18 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute';
+import CurrentUserContext from '../../utils/context/CurrentUserContext';
 
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [error, setError] = useState({
     registerError: null,
   });
 
-  // const checkToken = useCallback(async () => {
-  //   if (localStorage.checked === 'true') {
-  //     try {
-  //       const user = await mainApi.checkToken();
-  //       setIsLoggedIn(true);
-  //       history.push('/movies');
-  //       setCurrentUser(user);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  // }, [history]);
-
-  useEffect(async () => {
+  const checkToken = useCallback(async () => {
     if (localStorage.checked === 'true') {
       try {
         const user = await mainApi.checkToken();
@@ -49,13 +37,18 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    checkToken();
+  }, [history]);
+
   async function saveMovies() {
-    try {
-      const allMovies = await moviesApi.getMovies();
-      const moviesForShow = allMovies.slice(0, 13);
-      localStorage.setItem('movies', JSON.stringify(moviesForShow));
-    } catch (e) {
-      console.log(e);
+    if (localStorage.checked === 'true') {
+      try {
+        const allMovies = await moviesApi.getMovies();
+        localStorage.setItem('movies', JSON.stringify(allMovies));
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -84,41 +77,43 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <Switch>
-        <Route exact path='/'>
-          <Main isLoggedIn={true} pathname={pathname} />
-        </Route>
-        <ProtectedRoute
-          path='/movies'
-          pathname={pathname}
-          isLoggedIn={isLoggedIn}
-          component={Movies}
-        />
-        <ProtectedRoute
-          path='/saved-movies'
-          pathname={pathname}
-          isLoggedIn={isLoggedIn}
-          component={SavedMovies}
-        />
-        <Route path='/signup'>
-          <Register
-            onRegister={onRegister} />
-        </Route>
-        <Route path='/signin'>
-          <Login
-            onLogin={onLogin} />
-        </Route>
-        <Route path='/profile'>
-          <Header isLoggedIn={true} />
-          <Profile />
-          <Footer />
-        </Route>
-        <Route>
-          <NotFound path='*' />
-        </Route>
-      </Switch>
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='App'>
+        <Switch>
+          <Route exact path='/'>
+            <Main isLoggedIn={isLoggedIn} pathname={pathname} />
+          </Route>
+          <ProtectedRoute
+            path='/movies'
+            pathname={pathname}
+            isLoggedIn={isLoggedIn}
+            component={Movies}
+          />
+          <ProtectedRoute
+            path='/saved-movies'
+            pathname={pathname}
+            isLoggedIn={isLoggedIn}
+            component={SavedMovies}
+          />
+          <Route path='/signup'>
+            <Register
+              onRegister={onRegister} />
+          </Route>
+          <Route path='/signin'>
+            <Login
+              onLogin={onLogin} />
+          </Route>
+          <Route path='/profile'>
+            <Header isLoggedIn={true} />
+            <Profile />
+            <Footer />
+          </Route>
+          <Route>
+            <NotFound path='*' />
+          </Route>
+        </Switch>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

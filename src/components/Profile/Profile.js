@@ -1,10 +1,13 @@
 import './Profile.css';
+import { useContext } from 'react';
+import CurrentUserContext from '../../utils/context/CurrentUserContext';
 
 function Profile() {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <section className='profile'>
       <form className='profile-form' name='profile'>
-        <h2 className='profile-form__title'>Привет, Андрей!</h2>
+        <h2 className='profile-form__title'>Привет, {currentUser.name}</h2>
         <label className='profile-form__label'>Имя
           <input className='profile-form__input' name='name' type='text' />
         </label>

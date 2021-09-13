@@ -1,4 +1,5 @@
 import './MoviesCard.css';
+import convertDuration from '../../utils/convertDuration';
 
 function MoviesCard({ movie, pathname }) {
   const imageURL = 'https://api.nomoreparties.co';
@@ -17,7 +18,7 @@ function MoviesCard({ movie, pathname }) {
     <article className='movie'>
       <div className='movie__header'>
         <h3 className='movie__title'>{movie.nameRU}</h3>
-        <span className='movie__duration'>{movie.duration} минут</span>
+        <span className='movie__duration'>{convertDuration(movie.duration)}</span>
       </div>
       <img
         className='movie__image'
