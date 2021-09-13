@@ -35,11 +35,11 @@ function App() {
         console.log(e);
       }
     }
-  }, []);
+  }, [history]);
 
   useEffect(() => {
     checkToken();
-  }, [history]);
+  }, [checkToken]);
 
   async function saveMovies() {
     if (localStorage.checked === 'true') {
@@ -76,6 +76,12 @@ function App() {
     }
   }
 
+  function getMovies(movie) {
+    const searchedMovies = movie.split(' ');
+    const allmovies = localStorage.getItem('movies');
+    console.log(searchedMovies);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
@@ -88,6 +94,7 @@ function App() {
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             component={Movies}
+            onGetMovies={getMovies}
           />
           <ProtectedRoute
             path='/saved-movies'

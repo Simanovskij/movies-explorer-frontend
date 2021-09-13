@@ -5,7 +5,7 @@ export default function convertDuration(mins) {
     return `${minutes} минут`;
   }
   if (minutes === 0) {
-    return `${hours}ч.`;
+    return `${hours}ч`;
   }
-  return `${hours}ч. ${minutes}мин`;
+  return `${hours}ч ${minutes}мин`;
 }

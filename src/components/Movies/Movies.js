@@ -5,7 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Movies({ isLoggedIn, pathname }) {
+function Movies({ isLoggedIn, pathname, onGetMovies }) {
   const MoviesCardList = lazy(
     () => new Promise((resolve) => setTimeout(() => resolve(import('../MoviesCardList/MoviesCardList')), 1000)),
   );
@@ -13,7 +13,7 @@ function Movies({ isLoggedIn, pathname }) {
   return (<>
       <Header isLoggedIn={isLoggedIn} />
       <main className='movies'>
-        <Searchform />
+        <Searchform onSubmit={onGetMovies} />
         <Suspense fallback={<Preloader />}>
           <MoviesCardList pathname={pathname} />
         </Suspense>
