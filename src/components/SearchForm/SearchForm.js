@@ -5,6 +5,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 function SearchForm(props) {
   const [request, setRequest] = useState('');
   const [error, setError] = useState(null);
+  const [isShort, setIsShort] = useState(false);
 
   function handleChange(e) {
     setRequest(e.target.value);
@@ -15,9 +16,14 @@ function SearchForm(props) {
     if (!request) {
       setError('Нужно ввести ключевое слово');
     } else {
-      props.onSubmit(request);
+      props.onSubmit(request, isShort);
       setError('');
     }
+  }
+
+  function handleShortCheckbox() {
+    setIsShort(!isShort);
+    console.log(isShort);
   }
 
   return (
@@ -28,7 +34,7 @@ function SearchForm(props) {
                value={request} />
         <button type='submit' className='searchform__submit' />
       </div>
-      <FilterCheckbox />
+      <FilterCheckbox onChange={handleShortCheckbox} />
     </form>
   );
 }

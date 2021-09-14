@@ -14,15 +14,16 @@ import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute';
 import CurrentUserContext from '../../utils/context/CurrentUserContext';
+import filterMovies from '../../utils/filterMovies';
 
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [error, setError] = useState({
-    registerError: null,
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState();
+  const [searchError, setSearchError] = useState(false);
 
   const checkToken = useCallback(async () => {
     if (localStorage.checked === 'true') {
@@ -40,21 +41,6 @@ function App() {
   useEffect(() => {
     checkToken();
   }, [checkToken]);
-
-  async function saveMovies() {
-    if (localStorage.checked === 'true') {
-      try {
-        const allMovies = await moviesApi.getMovies();
-        localStorage.setItem('movies', JSON.stringify(allMovies));
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-
-  useEffect(() => {
-    saveMovies();
-  }, []);
 
   async function onRegister(data) {
     try {
@@ -76,10 +62,21 @@ function App() {
     }
   }
 
-  function getMovies(movie) {
-    const searchedMovies = movie.split(' ');
-    const allmovies = localStorage.getItem('movies');
-    console.log(searchedMovies);
+  function getMovies(request, isShort) {
+    setIsLoading(true);
+    moviesApi.getMovies().then((allMovies) => {
+      const filteredMovies = filterMovies(request, allMovies, isShort);
+      if (filteredMovies.length == 0) {
+        setSearchError(true);
+      } else {
+        localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+        setMovies(filteredMovies);
+        setSearchError(false);
+      }
+    }).catch((e) => console.log(e))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -95,6 +92,9 @@ function App() {
             isLoggedIn={isLoggedIn}
             component={Movies}
             onGetMovies={getMovies}
+            movies={movies}
+            isLoading={isLoading}
+            error={searchError}
           />
           <ProtectedRoute
             path='/saved-movies'
