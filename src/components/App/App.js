@@ -99,6 +99,7 @@ function App() {
       setSearchError(true);
     }
     setFilteredMovies(sortedMovies);
+    console.log('checked');
     localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
   }
 

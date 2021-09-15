@@ -10,6 +10,7 @@ function FilterCheckbox(props) {
           id='checkbox'
           className='filter-checkbox__input'
           onChange={props.onChange}
+          checked={props.isShort}
         />
         <span className='filter-checkbox__slider'></span>
       </label>

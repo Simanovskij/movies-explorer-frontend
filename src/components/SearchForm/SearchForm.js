@@ -23,7 +23,7 @@ function SearchForm(props) {
 
   function handleShortCheckbox() {
     setIsShort(!isShort);
-    props.onSubmit(request, isShort);
+    props.onSubmit(request, !isShort);
   }
 
   return (
@@ -34,7 +34,7 @@ function SearchForm(props) {
                value={request} />
         <button type='submit' className='searchform__submit' />
       </div>
-      <FilterCheckbox onChange={handleShortCheckbox} />
+      <FilterCheckbox onChange={handleShortCheckbox} checked={isShort} />
     </form>
   );
 }
