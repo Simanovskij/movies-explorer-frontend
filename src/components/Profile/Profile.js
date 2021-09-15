@@ -2,7 +2,7 @@ import './Profile.css';
 import { useContext } from 'react';
 import CurrentUserContext from '../../utils/context/CurrentUserContext';
 
-function Profile() {
+function Profile({ onSignOut }) {
   const currentUser = useContext(CurrentUserContext);
   return (
     <section className='profile'>
@@ -16,7 +16,8 @@ function Profile() {
         </label>
         <div className='profile-form__buttons'>
           <button type='submit' className='profile-form__btn'>Редактировать</button>
-          <button type='button' className='profile-form__btn profile-form__btn_logout'>Выйти из
+          <button type='button' className='profile-form__btn profile-form__btn_logout'
+                  onClick={onSignOut}>Выйти из
             аккаунта
           </button>
         </div>

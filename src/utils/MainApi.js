@@ -38,6 +38,15 @@ class MainApi {
     return this._checkResponse(response);
   }
 
+  async signOut() {
+    const response = await fetch(`${this._baseUrl}/signout`, {
+      method: 'DELETE',
+      headers: this._headers,
+      credentials: 'include',
+    });
+    return this._checkResponse(response);
+  }
+
   async checkToken() {
     const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
@@ -45,6 +54,15 @@ class MainApi {
       credentials: 'include',
     });
     return this._checkResponse(response);
+  }
+
+  async getSavedMovies() {
+    const savedMovies = await fetch(`${this._baseUrl}/movies`, {
+      method: 'GET',
+      headers: this._headers,
+      credentials: 'include',
+    });
+    return this._checkResponse(savedMovies);
   }
 }
 

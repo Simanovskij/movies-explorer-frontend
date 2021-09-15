@@ -21,8 +21,9 @@ function App() {
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState(false);
 
   const checkToken = useCallback(async () => {
@@ -62,21 +63,43 @@ function App() {
     }
   }
 
-  function getMovies(request, isShort) {
-    setIsLoading(true);
-    moviesApi.getMovies().then((allMovies) => {
-      const filteredMovies = filterMovies(request, allMovies, isShort);
-      if (filteredMovies.length == 0) {
-        setSearchError(true);
-      } else {
-        localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-        setMovies(filteredMovies);
-        setSearchError(false);
-      }
-    }).catch((e) => console.log(e))
-      .finally(() => {
-        setIsLoading(false);
+  async function onSignOut() {
+    mainApi.signOut().then(() => {
+      setIsLoggedIn(false);
+      history.push('/');
+      localStorage.clear();
+    });
+  }
+
+  function getMovies() {
+    return Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
+      .then(([userMovies, allMovies]) => {
+        setSavedMovies(userMovies);
+        setMovies(allMovies);
+      }).catch((e) => {
+        console.log(e);
       });
+  }
+
+  useEffect(() => {
+    getMovies();
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const sortedMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+    if (sortedMovies) {
+      setFilteredMovies(sortedMovies);
+    }
+  }, []);
+
+  function getFilteredMovies(request, isShort) {
+    const sortedMovies = filterMovies(request, movies, isShort);
+    setSearchError(false);
+    if (sortedMovies.length === 0) {
+      setSearchError(true);
+    }
+    setFilteredMovies(sortedMovies);
+    localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
   }
 
   return (
@@ -91,9 +114,8 @@ function App() {
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             component={Movies}
-            onGetMovies={getMovies}
-            movies={movies}
-            isLoading={isLoading}
+            onGetMovies={getFilteredMovies}
+            movies={filteredMovies}
             error={searchError}
           />
           <ProtectedRoute
@@ -111,8 +133,8 @@ function App() {
               onLogin={onLogin} />
           </Route>
           <Route path='/profile'>
-            <Header isLoggedIn={true} />
-            <Profile />
+            <Header isLoggedIn={isLoggedIn} />
+            <Profile onSignOut={onSignOut} />
             <Footer />
           </Route>
           <Route>

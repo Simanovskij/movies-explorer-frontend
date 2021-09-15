@@ -1,18 +1,21 @@
 import './MoviesCardList.css';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import MoreButton from '../MoreButton/MoreButton';
+import { lazy, Suspense } from 'react';
+import Preloader from '../Preloader/Preloader';
+
+const MoviesCard = lazy(() => import('../MoviesCard/MoviesCard'));
 
 function MoviesCardList({ pathname, movies, error }) {
   return (
     <section className='movie-list'>
-      {error
-        ? <h3>Ничего не найдено</h3>
-        : <div className='movie-list__wrapper'>
-          {movies && movies.map((movie) => (
-            <MoviesCard key={movie.id} pathname={pathname} movie={movie} />
-          ))}
-        </div>}
-      {pathname === '/movies' && <MoreButton />}
+      <Suspense fallback={<Preloader />}>
+        {error
+          ? <h3 className='movie-list__error'>Ничего не найдено</h3>
+          : <div className='movie-list__wrapper'>
+            {movies && movies.map((movie) => (
+              <MoviesCard key={movie.id} pathname={pathname} movie={movie} />
+            ))}
+          </div>}
+      </Suspense>
     </section>
   );
 }

@@ -23,7 +23,7 @@ function SearchForm(props) {
 
   function handleShortCheckbox() {
     setIsShort(!isShort);
-    console.log(isShort);
+    props.onSubmit(request, isShort);
   }
 
   return (
