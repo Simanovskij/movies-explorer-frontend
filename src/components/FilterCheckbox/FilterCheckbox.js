@@ -1,6 +1,17 @@
 import './FilterCheckbox.css';
 
 function FilterCheckbox(props) {
+  function handleCheckBox(e) {
+    if (e.target.checked) {
+      props.onCheck(true);
+      localStorage.setItem('shortCheckBox', 'true');
+    } else {
+      props.onCheck(false);
+      localStorage.setItem('shortCheckBox', 'false');
+    }
+    props.onSearch();
+  }
+
   return (
     <div className='filter-checkbox'>
       <p className='filter-checkbox__title'>Короткометражки</p>
@@ -9,8 +20,8 @@ function FilterCheckbox(props) {
           type='checkbox'
           id='checkbox'
           className='filter-checkbox__input'
-          onChange={props.onChange}
-          checked={props.isShort}
+          onChange={handleCheckBox}
+          checked={props.checked}
         />
         <span className='filter-checkbox__slider'></span>
       </label>

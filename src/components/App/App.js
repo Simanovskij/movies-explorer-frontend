@@ -68,27 +68,28 @@ function App() {
       setIsLoggedIn(false);
       history.push('/');
       localStorage.clear();
+      setFilteredMovies([]);
     });
   }
 
-  function getMovies() {
-    return Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
-      .then(([userMovies, allMovies]) => {
-        setSavedMovies(userMovies);
-        setMovies(allMovies);
-      }).catch((e) => {
-        console.log(e);
-      });
-  }
-
   useEffect(() => {
-    getMovies();
+    if (isLoggedIn) {
+      Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
+        .then(([userMovies, allMovies]) => {
+          setSavedMovies(userMovies);
+          setMovies(allMovies);
+        }).catch((e) => {
+          console.log(e);
+        });
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
     const sortedMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-    if (sortedMovies) {
+    if (sortedMovies.length !== 0) {
       setFilteredMovies(sortedMovies);
+    } else {
+      setSearchError(true);
     }
   }, []);
 
