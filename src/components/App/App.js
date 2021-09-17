@@ -21,9 +21,10 @@ function App() {
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMoviesId, setSavedMoviesId] = useState([]);
   const [searchError, setSearchError] = useState(false);
   const [width, setWidth] = useState(document.documentElement.clientWidth);
 
@@ -53,66 +54,65 @@ function App() {
     checkToken();
   }, [checkToken]);
 
-  async function onRegister(data) {
-    try {
-      await mainApi.register(data);
-      await onLogin(data);
-    } catch (e) {
+  function onRegister(data) {
+    mainApi.register(data).then(() => {
+      onLogin(data);
+    }).catch((e) => {
       console.log(e);
-    }
+    });
   }
 
-  async function onLogin(data) {
-    try {
-      await mainApi.login(data);
+  function onLogin(data) {
+    mainApi.login(data).then(() => {
       setIsLoggedIn(true);
       history.push('/movies');
       localStorage.setItem('checked', 'true');
-    } catch (e) {
+    }).catch((e) => {
       console.log(e);
-    }
+    });
   }
 
-  async function onSignOut() {
+  function onSignOut() {
     mainApi.signOut().then(() => {
       setIsLoggedIn(false);
       history.push('/');
       localStorage.clear();
       setFilteredMovies([]);
+    }).catch((e) => {
+      console.log(e);
     });
   }
 
   useEffect(() => {
     if (isLoggedIn) {
       Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
-        .then(([userMovies, allMovies]) => {
+        .then(([userMovies, fetchedMovies]) => {
           setSavedMovies(userMovies);
-          setMovies(allMovies);
-        }).catch((e) => {
-          console.log(e);
+          setAllMovies(fetchedMovies);
+          if (userMovies.length) {
+            const userMoviesId = userMovies.map((movie) => movie.movieID);
+            setSavedMoviesId(userMoviesId);
+          }
         });
     }
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    const sortedMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-    if (sortedMovies.length !== 0) {
-      setFilteredMovies(sortedMovies);
-    } else {
-      setSearchError(true);
-    }
-  }, []);
-
   function getFilteredMovies(request, isShort) {
-    const sortedMovies = filterMovies(request, movies, isShort);
+    const sortedMovies = filterMovies(request, allMovies, isShort);
     setSearchError(false);
     if (sortedMovies.length === 0) {
       setSearchError(true);
     }
     setFilteredMovies(sortedMovies);
-    console.log('checked');
     localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
   }
+
+  useEffect(() => {
+    const searchedMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+    if (searchedMovies && isLoggedIn) {
+      setFilteredMovies(searchedMovies);
+    }
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -139,12 +139,10 @@ function App() {
             component={SavedMovies}
           />
           <Route path='/signup'>
-            <Register
-              onRegister={onRegister} />
+            <Register onRegister={onRegister} />
           </Route>
           <Route path='/signin'>
-            <Login
-              onLogin={onLogin} />
+            <Login onLogin={onLogin} />
           </Route>
           <Route path='/profile'>
             <Header isLoggedIn={isLoggedIn} />

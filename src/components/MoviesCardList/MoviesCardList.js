@@ -7,43 +7,46 @@ const MoviesCard = lazy(() => import('../MoviesCard/MoviesCard'));
 
 function MoviesCardList({ pathname, movies, error, width }) {
   const [cardsToShow, setCardsToShow] = useState([]);
-  const [counter, setCounter] = useState(null);
+  const [moviesToShow, setMoviesToShow] = useState(null);
+  const [moreMoviesToShow, setMoreMoviesToShow] = useState(null);
 
   useEffect(() => {
     if (width > 768) {
-      setCounter(12);
+      setMoviesToShow(12);
+      setMoreMoviesToShow(3);
     } else if (width <= 768 && width > 480) {
-      setCounter(8);
+      setMoviesToShow(8);
+      setMoreMoviesToShow(2);
     } else {
-      setCounter(5);
+      setMoviesToShow(5);
+      setMoreMoviesToShow(2);
     }
   }, [width]);
 
-  const cardsToRender = movies.slice(0, counter);
-
-  function getMore() {
-  }
-
   useEffect(() => {
-    console.log(movies.length);
-  }, [movies]);
+    setCardsToShow(movies.slice(0, moviesToShow));
+  }, [moviesToShow, movies]);
 
-  const displayMoreButton = cardsToShow.length > counter;
+  console.log();
 
-  console.log(displayMoreButton, counter, cardsToShow);
+  function handleMoreButton() {
+    setMoviesToShow((prev) => prev + moreMoviesToShow);
+  }
 
   return (
     <section className='movie-list'>
       <Suspense fallback={<Preloader />}>
-        {error
-          ? <h3 className='movie-list__error'>Ничего не найдено</h3>
-          : <div className='movie-list__wrapper'>
-            {movies && cardsToRender.map((movie) => (
+        {error ? (
+          <h3 className='movie-list__error'>Ничего не найдено</h3>
+        ) : (
+          <div className='movie-list__wrapper'>
+            {movies && cardsToShow.map((movie) => (
               <MoviesCard key={movie.id} pathname={pathname} movie={movie} />
             ))}
-          </div>}
+          </div>
+        )}
       </Suspense>
-      {movies.length > counter && <MoreButton onClick={getMore} />}
+      {(movies.length > moviesToShow) && <MoreButton onClick={handleMoreButton} />}
     </section>
   );
 }
