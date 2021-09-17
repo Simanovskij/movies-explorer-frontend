@@ -1,9 +1,9 @@
 import './MoreButton.css';
 
-function MoreButton() {
+function MoreButton(props) {
   return (
     <>
-      <button type='button' className='more-btn'>
+      <button onClick={props.onClick} type='button' className='more-btn'>
         Ещё
       </button>
     </>
