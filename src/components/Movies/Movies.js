@@ -4,12 +4,18 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ isLoggedIn, pathname, onGetMovies, movies, error, width }) {
+function Movies({ isLoggedIn, pathname, onSearch, movies, width, onSave, onSearchError }) {
   return (<>
       <Header isLoggedIn={isLoggedIn} width={width} />
       <main className='movies'>
-        <Searchform onSubmit={onGetMovies} />
-        <MoviesCardList pathname={pathname} movies={movies} error={error} width={width} />
+        <Searchform onSubmit={onSearch} />
+        <MoviesCardList
+          pathname={pathname}
+          movies={movies}
+          width={width}
+          onSearchError={onSearchError}
+          onSave={onSave}
+        />
       </main>
       <Footer />
     </>

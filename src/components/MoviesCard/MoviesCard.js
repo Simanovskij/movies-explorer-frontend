@@ -1,17 +1,29 @@
 import './MoviesCard.css';
 import convertDuration from '../../utils/convertDuration';
 
-function MoviesCard({ movie, pathname }) {
-  const imageURL = 'https://api.nomoreparties.co';
-  const isLiked = getRandom(1, 10) < 5;
+function MoviesCard({ movie, pathname, onSave }) {
+  const imageURL = `https://api.nomoreparties.co${movie.image.url}`;
+  const isLiked = false;
   const buttonMoviesClass = isLiked
     ? 'movie__like-btn movie__like-btn_liked '
     : 'movie__like-btn';
   const buttonSavedMoviesClass = 'movie__like-btn movie__like-btn_disliked ';
   const isMoviesPath = pathname === '/movies';
 
-  function getRandom(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+  function handleSaveClick() {
+    onSave({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: imageURL,
+      trailer: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      movieId: movie.id,
+    });
   }
 
   return (
@@ -22,11 +34,11 @@ function MoviesCard({ movie, pathname }) {
       </div>
       <img
         className='movie__image'
-        src={imageURL + movie.image.url}
+        src={pathname == '/movies' ? imageURL : movie.image}
         alt={movie.nameRU}
       />
       <button
-        type='button'
+        type='button' onClick={handleSaveClick}
         className={isMoviesPath ? buttonMoviesClass : buttonSavedMoviesClass}
       >
         {!isLiked && isMoviesPath && 'Сохранить'}

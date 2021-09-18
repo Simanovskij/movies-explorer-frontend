@@ -25,8 +25,9 @@ function App() {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesId, setSavedMoviesId] = useState([]);
-  const [searchError, setSearchError] = useState(false);
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [width, setWidth] = useState(document.documentElement.clientWidth);
+  const [searchError, setSearchError] = useState(false);
 
   const updateWidth = () => {
     setWidth(document.documentElement.clientWidth);
@@ -88,21 +89,26 @@ function App() {
       Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
         .then(([userMovies, fetchedMovies]) => {
           setSavedMovies(userMovies);
+          setSearchedSavedMovies(userMovies);
           setAllMovies(fetchedMovies);
           if (userMovies.length) {
-            const userMoviesId = userMovies.map((movie) => movie.movieID);
+            const userMoviesId = userMovies.map((movie) => movie.movieId);
             setSavedMoviesId(userMoviesId);
           }
         });
     }
   }, [isLoggedIn]);
 
-  function getFilteredMovies(request, isShort) {
-    const sortedMovies = filterMovies(request, allMovies, isShort);
+  function checkSearchError(arr) {
     setSearchError(false);
-    if (sortedMovies.length === 0) {
+    if (arr.length === 0) {
       setSearchError(true);
     }
+  }
+
+  function getFilteredMovies(request, isShort) {
+    const sortedMovies = filterMovies(request, allMovies, isShort);
+    checkSearchError(sortedMovies);
     setFilteredMovies(sortedMovies);
     localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
   }
@@ -113,6 +119,20 @@ function App() {
       setFilteredMovies(searchedMovies);
     }
   }, [isLoggedIn]);
+
+  function saveMovie(movie) {
+    mainApi.saveMovie(movie).then((savedMovie) => {
+      setSavedMovies([...savedMovies, savedMovie]);
+      setSavedMoviesId([...savedMoviesId, savedMovie.movieId]);
+      setSearchedSavedMovies([...searchedSavedMovies, savedMovie]);
+    });
+  }
+
+  function getFilteredSavedMovies(request, isShort) {
+    const sortedMovies = filterMovies(request, savedMovies, isShort);
+    checkSearchError(sortedMovies);
+    setSearchedSavedMovies(sortedMovies);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -127,9 +147,10 @@ function App() {
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             component={Movies}
-            onGetMovies={getFilteredMovies}
+            onSearch={getFilteredMovies}
+            onSearchError={searchError}
             movies={filteredMovies}
-            error={searchError}
+            onSave={saveMovie}
           />
           <ProtectedRoute
             path='/saved-movies'
@@ -137,6 +158,9 @@ function App() {
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             component={SavedMovies}
+            movies={searchedSavedMovies}
+            onSearch={getFilteredSavedMovies}
+            onSearchError={searchError}
           />
           <Route path='/signup'>
             <Register onRegister={onRegister} />

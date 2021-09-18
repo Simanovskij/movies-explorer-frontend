@@ -64,6 +64,28 @@ class MainApi {
     });
     return this._checkResponse(savedMovies);
   }
+
+  async saveMovie(movie) {
+    const savedMovie = await fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image,
+        trailer: movie.trailer,
+        thumbnail: movie.thumbnail,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        movieId: movie.movieId,
+      }),
+    });
+    return this._checkResponse(savedMovie);
+  }
 }
 
 const mainApi = new MainApi({
