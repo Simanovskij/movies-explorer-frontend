@@ -15,6 +15,7 @@ import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute';
 import CurrentUserContext from '../../utils/context/CurrentUserContext';
 import filterMovies from '../../utils/filterMovies';
+import formatMovies from '../../utils/formatMovies';
 
 function App() {
   const { pathname } = useLocation();
@@ -90,7 +91,7 @@ function App() {
         .then(([userMovies, fetchedMovies]) => {
           setSavedMovies(userMovies);
           setSearchedSavedMovies(userMovies);
-          setAllMovies(fetchedMovies);
+          setAllMovies(formatMovies(fetchedMovies));
           if (userMovies.length) {
             const userMoviesId = userMovies.map((movie) => movie.movieId);
             setSavedMoviesId(userMoviesId);
@@ -101,7 +102,7 @@ function App() {
 
   function checkSearchError(arr) {
     setSearchError(false);
-    if (arr.length === 0) {
+    if (!arr.length) {
       setSearchError(true);
     }
   }
@@ -121,11 +122,28 @@ function App() {
   }, [isLoggedIn]);
 
   function saveMovie(movie) {
-    mainApi.saveMovie(movie).then((savedMovie) => {
-      setSavedMovies([...savedMovies, savedMovie]);
-      setSavedMoviesId([...savedMoviesId, savedMovie.movieId]);
-      setSearchedSavedMovies([...searchedSavedMovies, savedMovie]);
-    });
+    mainApi.saveMovie(movie)
+      .then((savedMovie) => {
+        setSavedMovies([...savedMovies, savedMovie]);
+        setSavedMoviesId([...savedMoviesId, savedMovie.movieId]);
+        setSearchedSavedMovies([...searchedSavedMovies, savedMovie]);
+      }).catch((e) => {
+        console.log(e);
+      });
+  }
+
+  function deleteMovie(id) {
+    const deletedMovie = savedMovies.find((item) => item.movieId === id);
+    mainApi.deleteMovie(deletedMovie._id)
+      .then(() => {
+        const filteredSavedMovie = savedMovies.filter((movie) => movie.movieId !== id);
+        const filteredSavedMoviesId = savedMoviesId.filter((movieId) => movieId !== id);
+        setSavedMovies(filteredSavedMovie);
+        setSavedMoviesId(filteredSavedMoviesId);
+        setSearchedSavedMovies(filteredSavedMovie);
+      }).catch((e) => {
+        console.log(e);
+      });
   }
 
   function getFilteredSavedMovies(request, isShort) {
@@ -151,6 +169,8 @@ function App() {
             onSearchError={searchError}
             movies={filteredMovies}
             onSave={saveMovie}
+            onDelete={deleteMovie}
+            savedMoviesId={savedMoviesId}
           />
           <ProtectedRoute
             path='/saved-movies'
@@ -161,6 +181,7 @@ function App() {
             movies={searchedSavedMovies}
             onSearch={getFilteredSavedMovies}
             onSearchError={searchError}
+            onDelete={deleteMovie}
           />
           <Route path='/signup'>
             <Register onRegister={onRegister} />

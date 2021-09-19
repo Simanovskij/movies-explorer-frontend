@@ -4,7 +4,17 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ isLoggedIn, pathname, onSearch, movies, width, onSave, onSearchError }) {
+function Movies({
+  isLoggedIn,
+  pathname,
+  onSearch,
+  movies,
+  width,
+  onSave,
+  onDelete,
+  onSearchError,
+  savedMoviesId,
+}) {
   return (<>
       <Header isLoggedIn={isLoggedIn} width={width} />
       <main className='movies'>
@@ -15,6 +25,8 @@ function Movies({ isLoggedIn, pathname, onSearch, movies, width, onSave, onSearc
           width={width}
           onSearchError={onSearchError}
           onSave={onSave}
+          onDelete={onDelete}
+          savedMoviesId={savedMoviesId}
         />
       </main>
       <Footer />

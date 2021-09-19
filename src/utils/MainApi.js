@@ -86,6 +86,15 @@ class MainApi {
     });
     return this._checkResponse(savedMovie);
   }
+
+  async deleteMovie(id) {
+    const response = await fetch(`${this._baseUrl}/movies/${id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+      credentials: 'include',
+    });
+    return this._checkResponse(response);
+  }
 }
 
 const mainApi = new MainApi({

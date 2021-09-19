@@ -5,7 +5,15 @@ import MoreButton from '../MoreButton/MoreButton';
 
 const MoviesCard = lazy(() => import('../MoviesCard/MoviesCard'));
 
-function MoviesCardList({ pathname, movies, width, onSearchError, onSave }) {
+function MoviesCardList({
+  pathname,
+  movies,
+  width,
+  onSearchError,
+  onSave,
+  onDelete,
+  savedMoviesId,
+}) {
   const [cardsToShow, setCardsToShow] = useState([]);
   const [moviesToShow, setMoviesToShow] = useState(null);
   const [moreMoviesToShow, setMoreMoviesToShow] = useState(null);
@@ -23,7 +31,7 @@ function MoviesCardList({ pathname, movies, width, onSearchError, onSave }) {
         setMoreMoviesToShow(2);
       }
     }
-  }, [width]);
+  }, [width], pathname);
 
   useEffect(() => {
     setCardsToShow(movies.slice(0, moviesToShow));
@@ -32,8 +40,8 @@ function MoviesCardList({ pathname, movies, width, onSearchError, onSave }) {
   function handleMoreButton() {
     setMoviesToShow((prev) => prev + moreMoviesToShow);
   }
-
-  const moviesToMap = pathname === '/movies' ? cardsToShow : movies;
+  const isMoviesPath = pathname === '/movies';
+  const moviesToMap = isMoviesPath ? cardsToShow : movies;
 
   return (
     <section className='movie-list'>
@@ -43,12 +51,18 @@ function MoviesCardList({ pathname, movies, width, onSearchError, onSave }) {
         ) : (
           <div className='movie-list__wrapper'>
             {movies && moviesToMap.map((movie) => (
-              <MoviesCard key={movie.id} pathname={pathname} movie={movie} onSave={onSave}/>
+              <MoviesCard
+                key={isMoviesPath ? movie.movieId : movie._id}
+                pathname={pathname}
+                movie={movie}
+                onSave={onSave}
+                onDelete={onDelete}
+                savedMoviesId ={savedMoviesId}/>
             ))}
           </div>
         )}
       </Suspense>
-      {(movies.length > moviesToShow) && pathname == '/movies' && <MoreButton onClick={handleMoreButton} />}
+      {(movies.length > moviesToShow) && isMoviesPath && <MoreButton onClick={handleMoreButton} />}
     </section>
   );
 }

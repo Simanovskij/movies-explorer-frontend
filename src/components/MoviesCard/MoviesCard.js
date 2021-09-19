@@ -1,29 +1,37 @@
 import './MoviesCard.css';
+import { useState, useEffect } from 'react';
 import convertDuration from '../../utils/convertDuration';
 
-function MoviesCard({ movie, pathname, onSave }) {
-  const imageURL = `https://api.nomoreparties.co${movie.image.url}`;
-  const isLiked = false;
-  const buttonMoviesClass = isLiked
-    ? 'movie__like-btn movie__like-btn_liked '
-    : 'movie__like-btn';
-  const buttonSavedMoviesClass = 'movie__like-btn movie__like-btn_disliked ';
+function MoviesCard({ movie, pathname, onSave, onDelete, savedMoviesId }) {
+  const [isSaved, setIsSaved] = useState(false);
   const isMoviesPath = pathname === '/movies';
 
-  function handleSaveClick() {
+  useEffect(() => {
+    if (savedMoviesId && savedMoviesId.includes(movie.id)) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }, [savedMoviesId, movie]);
+
+  function handleSave() {
     onSave({
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
-      image: imageURL,
-      trailer: movie.trailerLink,
-      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      movieId: movie.id,
+      country: movie.country || 'Нет',
+      director: movie.director || 'Нет',
+      duration: movie.duration || 'Нет',
+      year: movie.year || 0,
+      description: movie.description || 'Нет',
+      image: movie.image,
+      trailer: movie.trailer.startsWith('http') ? movie.trailer : 'https://www.kinopoisk.ru/',
+      thumbnail: movie.thumbnail,
+      nameRU: movie.nameRU || 'Нет',
+      nameEN: movie.nameEN || 'Нет',
+      movieId: movie.movieId,
     });
+  }
+
+  function handleDelete() {
+    onDelete(movie.movieId);
   }
 
   return (
@@ -34,15 +42,24 @@ function MoviesCard({ movie, pathname, onSave }) {
       </div>
       <img
         className='movie__image'
-        src={pathname == '/movies' ? imageURL : movie.image}
+        src={movie.image}
         alt={movie.nameRU}
       />
-      <button
-        type='button' onClick={handleSaveClick}
-        className={isMoviesPath ? buttonMoviesClass : buttonSavedMoviesClass}
+      {isMoviesPath
+        && <button
+          type='button' onClick={isSaved ? handleDelete : handleSave}
+          className={isSaved ? 'movie__like-btn movie__like-btn_liked' : 'movie__like-btn'}
+        >
+          {!isSaved && 'Сохранить'}
+        </button>
+      }
+      {!isMoviesPath
+      && <button
+        type='button' onClick={handleDelete}
+        className='movie__like-btn movie__like-btn_disliked'
       >
-        {!isLiked && isMoviesPath && 'Сохранить'}
       </button>
+      }
     </article>
   );
 }
