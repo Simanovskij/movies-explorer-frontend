@@ -30,6 +30,7 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
+  position: relative;
 }
 
 .profile-form__label:last-of-type {
@@ -45,6 +46,16 @@
   font-weight: normal;
   font-size: 11px;
   line-height: 13px;
+}
+
+.input__error_name {
+  top: 31px;
+  position: absolute;
+}
+
+.input__error_email {
+  top: 15px;
+  position: absolute;
 }
 
 .profile-form__buttons {

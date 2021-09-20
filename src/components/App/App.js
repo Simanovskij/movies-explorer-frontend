@@ -54,10 +54,13 @@ function App() {
   }, [checkToken]);
 
   function onRegister(data) {
+    setIsLoading(true);
     mainApi.register(data).then(() => {
       onLogin(data);
     }).catch((err) => {
       showError(parseError(err));
+    }).finally(() => {
+      setIsLoading(false);
     });
   }
 
@@ -221,7 +224,7 @@ function App() {
             onDelete={deleteMovie}
           />
           <Route path='/signup'>
-            <Register onRegister={onRegister} />
+            <Register onRegister={onRegister} isLoading={isLoading} />
           </Route>
           <Route path='/signin'>
             <Login onLogin={onLogin} />

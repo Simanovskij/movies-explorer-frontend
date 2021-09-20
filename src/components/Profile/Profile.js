@@ -34,8 +34,8 @@ function Profile({ onSignOut, onUpdate }) {
             value={values.name || ''}
             onChange={handleChange}
           />
+          <span className='input__error input__error_name'>{errors.name}</span>
         </label>
-        <span className='input__error'>{errors.name}</span>
         <label className='profile-form__label'>Почта
           <input
             className='profile-form__input'
@@ -44,8 +44,8 @@ function Profile({ onSignOut, onUpdate }) {
             value={values.email || ''}
             onChange={handleChange}
           />
+          <span className='input__error input__error_email'>{errors.email}</span>
         </label>
-        <span className='input__error'>{errors.email}</span>
         <div className='profile-form__buttons'>
           <button type='submit' className='profile-form__btn'>Редактировать</button>
           <button type='button' className='profile-form__btn profile-form__btn_logout'
