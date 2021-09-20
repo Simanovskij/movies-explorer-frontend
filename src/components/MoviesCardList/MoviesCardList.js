@@ -1,9 +1,7 @@
 import './MoviesCardList.css';
-import { lazy, Suspense, useEffect, useState } from 'react';
-import Preloader from '../Preloader/Preloader';
+import { useEffect, useState } from 'react';
 import MoreButton from '../MoreButton/MoreButton';
-
-const MoviesCard = lazy(() => import('../MoviesCard/MoviesCard'));
+import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({
   pathname,
@@ -45,7 +43,6 @@ function MoviesCardList({
 
   return (
     <section className='movie-list'>
-      <Suspense fallback={<Preloader />}>
         {onSearchError ? (
           <h3 className='movie-list__error'>Ничего не найдено</h3>
         ) : (
@@ -61,7 +58,6 @@ function MoviesCardList({
             ))}
           </div>
         )}
-      </Suspense>
       {(movies.length > moviesToShow) && isMoviesPath && <MoreButton onClick={handleMoreButton} />}
     </section>
   );

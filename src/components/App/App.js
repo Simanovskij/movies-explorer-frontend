@@ -22,13 +22,13 @@ function App() {
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesId, setSavedMoviesId] = useState([]);
   const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [width, setWidth] = useState(document.documentElement.clientWidth);
   const [searchError, setSearchError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateWidth = () => {
     setWidth(document.documentElement.clientWidth);
@@ -87,11 +87,10 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      Promise.all([mainApi.getSavedMovies(), moviesApi.getMovies()])
-        .then(([userMovies, fetchedMovies]) => {
+      mainApi.getSavedMovies()
+        .then((userMovies) => {
           setSavedMovies(userMovies);
           setSearchedSavedMovies(userMovies);
-          setAllMovies(formatMovies(fetchedMovies));
           if (userMovies.length) {
             const userMoviesId = userMovies.map((movie) => movie.movieId);
             setSavedMoviesId(userMoviesId);
@@ -108,10 +107,28 @@ function App() {
   }
 
   function getFilteredMovies(request, isShort) {
-    const sortedMovies = filterMovies(request, allMovies, isShort);
-    checkSearchError(sortedMovies);
-    setFilteredMovies(sortedMovies);
-    localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
+    const localMovies = JSON.parse(localStorage.getItem('localMovies'));
+    if (!localMovies) {
+      setIsLoading(true);
+      moviesApi.getMovies()
+        .then((movies) => {
+          const formattedMovies = formatMovies(movies);
+          const sortedMovies = filterMovies(request, formattedMovies, isShort);
+          checkSearchError(sortedMovies);
+          setFilteredMovies(sortedMovies);
+          localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
+          localStorage.setItem('localMovies', JSON.stringify(formattedMovies));
+        }).catch((e) => {
+          console.log(e);
+        }).finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      const sortedMovies = filterMovies(request, localMovies, isShort);
+      checkSearchError(sortedMovies);
+      setFilteredMovies(sortedMovies);
+      localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
+    }
   }
 
   useEffect(() => {
@@ -164,6 +181,7 @@ function App() {
             width={width}
             pathname={pathname}
             isLoggedIn={isLoggedIn}
+            isLoading={isLoading}
             component={Movies}
             onSearch={getFilteredMovies}
             onSearchError={searchError}

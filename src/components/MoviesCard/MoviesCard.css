@@ -39,6 +39,7 @@
   height: 200px;
   margin-bottom: 18px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .movie__like-btn {
