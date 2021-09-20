@@ -1,6 +1,6 @@
 import './Profile.css';
 import { useContext } from 'react';
-import CurrentUserContext from '../../utils/context/CurrentUserContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import UseForm from '../../utils/UseForm';
 
 function Profile({ onSignOut, onUpdate }) {

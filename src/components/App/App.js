@@ -13,9 +13,13 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute';
-import CurrentUserContext from '../../utils/context/CurrentUserContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import filterMovies from '../../utils/filterMovies';
 import formatMovies from '../../utils/formatMovies';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import successImage from '../../images/Succes.svg';
+import notSuccessImage from '../../images/notSucces.svg';
+import parseError from '../../utils/ParseError';
 
 function App() {
   const { pathname } = useLocation();
@@ -28,6 +32,9 @@ function App() {
   const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
+  const [infoImage, setInfoImage] = useState(null);
 
   const checkToken = useCallback(async () => {
     if (localStorage.checked === 'true') {
@@ -36,8 +43,8 @@ function App() {
         setIsLoggedIn(true);
         history.push('/movies');
         setCurrentUser(user);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        showError(parseError(err));
       }
     }
   }, [history]);
@@ -49,8 +56,8 @@ function App() {
   function onRegister(data) {
     mainApi.register(data).then(() => {
       onLogin(data);
-    }).catch((e) => {
-      console.log(e);
+    }).catch((err) => {
+      showError(parseError(err));
     });
   }
 
@@ -59,8 +66,8 @@ function App() {
       setIsLoggedIn(true);
       history.push('/movies');
       localStorage.setItem('checked', 'true');
-    }).catch((e) => {
-      console.log(e);
+    }).catch((err) => {
+      showError(parseError(err));
     });
   }
 
@@ -70,8 +77,8 @@ function App() {
       history.push('/');
       localStorage.clear();
       setFilteredMovies([]);
-    }).catch((e) => {
-      console.log(e);
+    }).catch((err) => {
+      showError(parseError(err));
     });
   }
 
@@ -79,8 +86,9 @@ function App() {
     mainApi.updateUser(newUser)
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
-      }).catch((e) => {
-        console.log(e);
+        showSuccess('Изменено успешно');
+      }).catch((err) => {
+        showError(err.message);
       });
   }
 
@@ -94,6 +102,8 @@ function App() {
             const userMoviesId = userMovies.map((movie) => movie.movieId);
             setSavedMoviesId(userMoviesId);
           }
+        }).catch((err) => {
+          showError(parseError(err));
         });
     }
   }, [isLoggedIn]);
@@ -117,8 +127,8 @@ function App() {
           setFilteredMovies(sortedMovies);
           localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
           localStorage.setItem('localMovies', JSON.stringify(formattedMovies));
-        }).catch((e) => {
-          console.log(e);
+        }).catch((err) => {
+          showError(parseError(err));
         }).finally(() => {
           setIsLoading(false);
         });
@@ -143,8 +153,8 @@ function App() {
         setSavedMovies([...savedMovies, savedMovie]);
         setSavedMoviesId([...savedMoviesId, savedMovie.movieId]);
         setSearchedSavedMovies([...searchedSavedMovies, savedMovie]);
-      }).catch((e) => {
-        console.log(e);
+      }).catch((err) => {
+        showError(parseError(err));
       });
   }
 
@@ -157,9 +167,21 @@ function App() {
         setSavedMovies(filteredSavedMovie);
         setSavedMoviesId(filteredSavedMoviesId);
         setSearchedSavedMovies(filteredSavedMovie);
-      }).catch((e) => {
-        console.log(e);
+      }).catch((err) => {
+        showError(parseError(err));
       });
+  }
+
+  function showSuccess(message) {
+    setIsInfoTooltipOpen(true);
+    setInfoImage(successImage);
+    setInfoMessage(message);
+  }
+
+  function showError(message) {
+    setIsInfoTooltipOpen(true);
+    setInfoImage(notSuccessImage);
+    setInfoMessage(message);
   }
 
   function getFilteredSavedMovies(request, isShort) {
@@ -213,6 +235,12 @@ function App() {
             <NotFound path='*' />
           </Route>
         </Switch>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          setIsOpen={setIsInfoTooltipOpen}
+          infoMessage={infoMessage}
+          infoImage={infoImage}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

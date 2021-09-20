@@ -8,7 +8,7 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    throw new Error(`${res.status}`);
+    return Promise.reject(res);
   };
 
   async register(data) {
