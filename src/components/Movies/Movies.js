@@ -10,7 +10,6 @@ function Movies({
   pathname,
   onSearch,
   movies,
-  width,
   onSave,
   onDelete,
   onSearchError,
@@ -18,7 +17,7 @@ function Movies({
   isLoading,
 }) {
   return (<>
-      <Header isLoggedIn={isLoggedIn} width={width} />
+      <Header isLoggedIn={isLoggedIn}/>
       <main className='movies'>
         <Searchform onSubmit={onSearch} />
         {isLoading
@@ -26,7 +25,6 @@ function Movies({
           : <MoviesCardList
               pathname={pathname}
               movies={movies}
-              width={width}
               onSearchError={onSearchError}
               onSave={onSave}
               onDelete={onDelete}

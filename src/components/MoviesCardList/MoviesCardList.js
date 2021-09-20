@@ -6,7 +6,6 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList({
   pathname,
   movies,
-  width,
   onSearchError,
   onSave,
   onDelete,
@@ -15,6 +14,16 @@ function MoviesCardList({
   const [cardsToShow, setCardsToShow] = useState([]);
   const [moviesToShow, setMoviesToShow] = useState(null);
   const [moreMoviesToShow, setMoreMoviesToShow] = useState(null);
+  const [width, setWidth] = useState(document.documentElement.clientWidth);
+
+  const updateWidth = () => {
+    setWidth(document.documentElement.clientWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  });
 
   useEffect(() => {
     if (pathname === '/movies') {

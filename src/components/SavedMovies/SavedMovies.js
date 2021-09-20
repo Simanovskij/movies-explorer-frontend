@@ -4,15 +4,14 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ isLoggedIn, pathname, movies, width, onSearchError, onSearch, onDelete }) {
+function SavedMovies({ isLoggedIn, pathname, movies, onSearchError, onSearch, onDelete }) {
   return (<>
-      <Header isLoggedIn={isLoggedIn} width={width} />
+      <Header isLoggedIn={isLoggedIn} />
       <main className='saved-movies'>
         <Searchform onSubmit={onSearch}/>
           <MoviesCardList
             pathname={pathname}
             movies={movies}
-            width={width}
             onSearchError={onSearchError}
             onDelete={onDelete}
           />

@@ -26,18 +26,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesId, setSavedMoviesId] = useState([]);
   const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
-  const [width, setWidth] = useState(document.documentElement.clientWidth);
   const [searchError, setSearchError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const updateWidth = () => {
-    setWidth(document.documentElement.clientWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  });
 
   const checkToken = useCallback(async () => {
     if (localStorage.checked === 'true') {
@@ -174,11 +164,10 @@ function App() {
       <div className='App'>
         <Switch>
           <Route exact path='/'>
-            <Main isLoggedIn={isLoggedIn} pathname={pathname} width={width} />
+            <Main isLoggedIn={isLoggedIn} pathname={pathname} />
           </Route>
           <ProtectedRoute
             path='/movies'
-            width={width}
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
@@ -192,7 +181,6 @@ function App() {
           />
           <ProtectedRoute
             path='/saved-movies'
-            width={width}
             pathname={pathname}
             isLoggedIn={isLoggedIn}
             component={SavedMovies}

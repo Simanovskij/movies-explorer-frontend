@@ -1,12 +1,22 @@
 import './Header.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '../Navigation/Navigation';
 import Logo from '../Logo/Logo';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import BurgerButton from '../BurgerButton/BurgerButton';
 
-function Header({ isLoggedIn, pathname, width }) {
+function Header({ isLoggedIn, pathname }) {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [width, setWidth] = useState(document.documentElement.clientWidth);
+
+  const updateWidth = () => {
+    setWidth(document.documentElement.clientWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  });
 
   const isMobile = width <= 960;
 
