@@ -22,7 +22,7 @@ function MoviesCard({ movie, pathname, onSave, onDelete, savedMoviesId }) {
       year: movie.year || 0,
       description: movie.description || 'Нет',
       image: movie.image,
-      trailer: movie.trailer.startsWith('http') ? movie.trailer : 'https://www.kinopoisk.ru/',
+      trailer: movie.trailer,
       thumbnail: movie.thumbnail,
       nameRU: movie.nameRU || 'Нет',
       nameEN: movie.nameEN || 'Нет',
@@ -32,6 +32,10 @@ function MoviesCard({ movie, pathname, onSave, onDelete, savedMoviesId }) {
 
   function handleDelete() {
     onDelete(movie.movieId);
+  }
+
+  function handleImageClick() {
+    window.open(movie.trailer);
   }
 
   return (
@@ -44,6 +48,7 @@ function MoviesCard({ movie, pathname, onSave, onDelete, savedMoviesId }) {
         className='movie__image'
         src={movie.image}
         alt={movie.nameRU}
+        onClick={handleImageClick}
       />
       {isMoviesPath
         && <button
