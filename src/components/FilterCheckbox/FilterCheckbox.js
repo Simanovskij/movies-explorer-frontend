@@ -9,7 +9,10 @@ function FilterCheckbox(props) {
       props.onCheck(false);
       localStorage.setItem('shortCheckBox', 'false');
     }
-    props.onSearch();
+    const isAlreadySearched = localStorage.getItem('filteredMovies');
+    if (isAlreadySearched) {
+      props.onSearch();
+    }
   }
 
   return (
