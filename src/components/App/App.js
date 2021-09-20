@@ -75,6 +75,15 @@ function App() {
     });
   }
 
+  function updateUser(newUser) {
+    mainApi.updateUser(newUser)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+      }).catch((e) => {
+        console.log(e);
+      });
+  }
+
   useEffect(() => {
     if (isLoggedIn) {
       mainApi.getSavedMovies()
@@ -197,7 +206,7 @@ function App() {
           </Route>
           <Route path='/profile'>
             <Header isLoggedIn={isLoggedIn} />
-            <Profile onSignOut={onSignOut} />
+            <Profile onSignOut={onSignOut} onUpdate={updateUser}/>
             <Footer />
           </Route>
           <Route>

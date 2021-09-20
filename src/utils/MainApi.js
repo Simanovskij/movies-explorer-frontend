@@ -95,6 +95,19 @@ class MainApi {
     });
     return this._checkResponse(response);
   }
+
+  async updateUser(newUser) {
+    const updatedUser = await fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        name: newUser.name,
+        email: newUser.email,
+      }),
+    });
+    return this._checkResponse(updatedUser);
+  }
 }
 
 const mainApi = new MainApi({

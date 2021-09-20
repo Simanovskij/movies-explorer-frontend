@@ -66,7 +66,6 @@ function Register({ onRegister }) {
           error={errors.password}
         />
       </Form>
-      {console.log(isValid)}
     </section>
   );
 }
