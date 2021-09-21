@@ -91,7 +91,6 @@ function App() {
           } else {
             setSavedMoviesId([]);
           }
-          console.log(userMovies.length);
         }).catch((err) => {
           showError(parseError(err));
         });
