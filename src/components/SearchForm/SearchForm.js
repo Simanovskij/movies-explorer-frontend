@@ -1,6 +1,6 @@
-import './SearchForm.css';
 import { useEffect, useState } from 'react';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import FilterCheckbox from '../Filtercheckbox/FilterCheckbox';
+import './SearchForm.css';
 
 function SearchForm(props) {
   const [request, setRequest] = useState(localStorage.getItem('request') || '');

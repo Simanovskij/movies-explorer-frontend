@@ -1,9 +1,9 @@
-import './Movies.css';
-import Searchform from '../SearchForm/SearchForm';
+import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import './Movies.css';
 
 function Movies({
   isLoggedIn,
@@ -19,7 +19,7 @@ function Movies({
   return (<>
       <Header isLoggedIn={isLoggedIn}/>
       <main className='movies'>
-        <Searchform onSubmit={onSearch} />
+        <SearchForm onSubmit={onSearch} />
         {isLoading
           ? <Preloader/>
           : <MoviesCardList
