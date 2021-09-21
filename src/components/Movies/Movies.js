@@ -1,4 +1,4 @@
-import './Movies.css';
+import './movies.css';
 import Searchform from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
