@@ -2,8 +2,9 @@ import './Profile.css';
 import { useContext } from 'react';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import UseForm from '../../utils/UseForm';
+import Header from '../Header/Header';
 
-function Profile({ onSignOut, onUpdate }) {
+function Profile({ onSignOut, onUpdate, isLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
 
   const {
@@ -21,6 +22,8 @@ function Profile({ onSignOut, onUpdate }) {
   }
 
   return (
+    <>
+    <Header isLoggedIn={isLoggedIn}/>
     <section className='profile'>
       <form className='profile-form' name='profile' onSubmit={handleSubmit}>
         <h2 className='profile-form__title'>Привет, {currentUser.name}</h2>
@@ -55,6 +58,7 @@ function Profile({ onSignOut, onUpdate }) {
         </div>
       </form>
     </section>
+    </>
   );
 }
 

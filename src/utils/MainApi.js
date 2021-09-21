@@ -47,7 +47,7 @@ class MainApi {
     return this._checkResponse(response);
   }
 
-  async checkToken() {
+  async getUser() {
     const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers,

@@ -38,7 +38,7 @@ function MoviesCardList({
         setMoreMoviesToShow(2);
       }
     }
-  }, [width], pathname);
+  }, [width, pathname]);
 
   useEffect(() => {
     setCardsToShow(movies.slice(0, moviesToShow));

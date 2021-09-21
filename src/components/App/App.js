@@ -1,9 +1,7 @@
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import Header from '../Header/Header';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi';
@@ -36,23 +34,22 @@ function App() {
   const [infoMessage, setInfoMessage] = useState('');
   const [infoImage, setInfoImage] = useState(null);
 
-  const checkToken = useCallback(async () => {
-    if (localStorage.checked === 'true') {
-      try {
-        const user = await mainApi.checkToken();
-        setIsLoggedIn(true);
-        history.push('/movies');
-        setCurrentUser(user);
-      } catch (err) {
-        showError(parseError(err));
-      }
-    }
-  }, [history]);
-
-  useEffect(() => {
-    checkToken();
-  }, [checkToken]);
-
+  // const checkToken = useCallback(async () => {
+  //   if (localStorage.checked === 'true') {
+  //     try {
+  //       const user = await mainApi.checkToken();
+  //       setIsLoggedIn(true);
+  //       history.push('/movies');
+  //       setCurrentUser(user);
+  //     } catch (err) {
+  //       showError(parseError(err));
+  //     }
+  //   }
+  // }, [history]);
+  //
+  // useEffect(() => {
+  //   checkToken();
+  // }, [checkToken]);
   function onRegister(data) {
     setIsLoading(true);
     mainApi.register(data).then(() => {
@@ -67,6 +64,7 @@ function App() {
   function onLogin(data) {
     mainApi.login(data).then(() => {
       setIsLoggedIn(true);
+      getUser();
       history.push('/movies');
       localStorage.setItem('checked', 'true');
     }).catch((err) => {
@@ -193,6 +191,30 @@ function App() {
     setSearchedSavedMovies(sortedMovies);
   }
 
+  useEffect(() => {
+    if (localStorage.checked === 'true') {
+      mainApi.getUser()
+        .then((user) => {
+          setIsLoggedIn(true);
+          setCurrentUser(user);
+        }).catch(() => {
+          localStorage.clear();
+          setIsLoggedIn(false);
+        });
+    }
+  }, []);
+
+  function getUser() {
+    mainApi.getUser()
+      .then((user) => {
+        setCurrentUser(user);
+      }).catch((err) => {
+        showError(parseError(err));
+      });
+  }
+
+  console.log('render');
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
@@ -223,16 +245,18 @@ function App() {
             onSearchError={searchError}
             onDelete={deleteMovie}
           />
+          <ProtectedRoute
+            path='/profile'
+            isLoggedIn={isLoggedIn}
+            onSignOut={onSignOut}
+            onUpdate={updateUser}
+            component={Profile}
+          />
           <Route path='/signup'>
             <Register onRegister={onRegister} isLoading={isLoading} />
           </Route>
           <Route path='/signin'>
             <Login onLogin={onLogin} />
-          </Route>
-          <Route path='/profile'>
-            <Header isLoggedIn={isLoggedIn} />
-            <Profile onSignOut={onSignOut} onUpdate={updateUser}/>
-            <Footer />
           </Route>
           <Route>
             <NotFound path='*' />
