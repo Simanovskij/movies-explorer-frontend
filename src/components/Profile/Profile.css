@@ -75,6 +75,10 @@
   cursor: pointer;
 }
 
+.profile-form__btn_disabled {
+  cursor: default;
+}
+
 .profile-form__btn_logout {
   color: #FF3055;
 }

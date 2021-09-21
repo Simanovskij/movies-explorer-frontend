@@ -33,23 +33,6 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
   const [infoImage, setInfoImage] = useState(null);
-
-  // const checkToken = useCallback(async () => {
-  //   if (localStorage.checked === 'true') {
-  //     try {
-  //       const user = await mainApi.checkToken();
-  //       setIsLoggedIn(true);
-  //       history.push('/movies');
-  //       setCurrentUser(user);
-  //     } catch (err) {
-  //       showError(parseError(err));
-  //     }
-  //   }
-  // }, [history]);
-  //
-  // useEffect(() => {
-  //   checkToken();
-  // }, [checkToken]);
   function onRegister(data) {
     setIsLoading(true);
     mainApi.register(data).then(() => {
@@ -62,6 +45,7 @@ function App() {
   }
 
   function onLogin(data) {
+    setIsLoading(true);
     mainApi.login(data).then(() => {
       setIsLoggedIn(true);
       getUser();
@@ -69,6 +53,8 @@ function App() {
       localStorage.setItem('checked', 'true');
     }).catch((err) => {
       showError(parseError(err));
+    }).finally(() => {
+      setIsLoading(false);
     });
   }
 
@@ -89,7 +75,7 @@ function App() {
         setCurrentUser(updatedUser);
         showSuccess('Изменено успешно');
       }).catch((err) => {
-        showError(err.message);
+        showError(parseError(err));
       });
   }
 
@@ -213,8 +199,6 @@ function App() {
       });
   }
 
-  console.log('render');
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
@@ -256,7 +240,7 @@ function App() {
             <Register onRegister={onRegister} isLoading={isLoading} />
           </Route>
           <Route path='/signin'>
-            <Login onLogin={onLogin} />
+            <Login onLogin={onLogin} isLoading={isLoading}/>
           </Route>
           <Route>
             <NotFound path='*' />

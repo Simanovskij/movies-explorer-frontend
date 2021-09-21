@@ -1,24 +1,49 @@
 import './Profile.css';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import CurrentUserContext from '../../context/CurrentUserContext';
-import UseForm from '../../utils/UseForm';
 import Header from '../Header/Header';
 
 function Profile({ onSignOut, onUpdate, isLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
+  const [isValid, setIsValid] = useState(false);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [errors, setErrors] = useState({});
 
-  const {
-    values,
-    handleChange,
-    errors,
-    isValid,
-    resetForm,
-  } = UseForm();
+  // function handleNameChange(e) {
+  //   setName(e.target.value);
+  //   setIsValid(e.target.closest('form').checkValidity());
+  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
+  //   customValidity(e);
+  // }
+  // function handleEmailChange(e) {
+  //   setEmail(e.target.value);
+  //   setIsValid(e.target.closest('form').checkValidity());
+  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
+  //   customValidity(e);
+  // }
+  function handleInputChange(e) {
+    const inputName = e.target.name;
+    const inputValue = e.target.value;
+    if (inputName === 'name') {
+      setName(inputValue);
+    } else {
+      setEmail(inputValue);
+    }
+    setIsValid(e.target.closest('form').checkValidity());
+    setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
+    customValidity(e);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdate(values);
-    resetForm();
+    onUpdate({ name, email });
+  }
+
+  function customValidity(e) {
+    if ((e.target.value === currentUser.name) || (e.target.value === currentUser.email)) {
+      setIsValid(false);
+    }
   }
 
   return (
@@ -34,8 +59,9 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
             type='text'
             minLength='2'
             maxLength='20'
-            value={values.name || ''}
-            onChange={handleChange}
+            required
+            value={name || ''}
+            onChange={handleInputChange}
           />
           <span className='input__error input__error_name'>{errors.name}</span>
         </label>
@@ -44,15 +70,23 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
             className='profile-form__input'
             name='email'
             type='email'
-            value={values.email || ''}
-            onChange={handleChange}
+            required
+            value={email || ''}
+            onChange={handleInputChange}
+            pattern='(([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)'
           />
           <span className='input__error input__error_email'>{errors.email}</span>
         </label>
         <div className='profile-form__buttons'>
-          <button type='submit' className='profile-form__btn'>Редактировать</button>
-          <button type='button' className='profile-form__btn profile-form__btn_logout'
-                  onClick={onSignOut}>Выйти из
+          <button
+            type='submit'
+            className={isValid ? 'profile-form__btn' : 'profile-form__btn profile-form__btn_disabled'}
+            disabled={!isValid}
+          >Редактировать</button>
+          <button
+            type='button'
+            className='profile-form__btn profile-form__btn_logout'
+            onClick={onSignOut}>Выйти из
             аккаунта
           </button>
         </div>
