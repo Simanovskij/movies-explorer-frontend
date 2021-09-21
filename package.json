@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint ./src",
-    "deploy": "npm run build && scp -r ./build/* link@84.201.168.91:/home/diplom/movies-explorer-front"
+    "deploy": "npm run build && scp -r ./build/* link@84.201.168.91:/home/link/diplom/movies-explorer-front"
   },
   "eslintConfig": {
     "extends": [
