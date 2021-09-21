@@ -88,7 +88,10 @@ function App() {
           if (userMovies.length) {
             const userMoviesId = userMovies.map((movie) => movie.movieId);
             setSavedMoviesId(userMoviesId);
+          } else {
+            setSavedMoviesId([]);
           }
+          console.log(userMovies.length);
         }).catch((err) => {
           showError(parseError(err));
         });

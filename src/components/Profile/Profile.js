@@ -9,19 +9,6 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [errors, setErrors] = useState({});
-
-  // function handleNameChange(e) {
-  //   setName(e.target.value);
-  //   setIsValid(e.target.closest('form').checkValidity());
-  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
-  //   customValidity(e);
-  // }
-  // function handleEmailChange(e) {
-  //   setEmail(e.target.value);
-  //   setIsValid(e.target.closest('form').checkValidity());
-  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
-  //   customValidity(e);
-  // }
   function handleInputChange(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
