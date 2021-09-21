@@ -1,6 +1,6 @@
 import './Form.css';
 import { Link } from 'react-router-dom';
-import SubmitButton from '../../SubmitButton/SubmitButton';
+import SubmitButton from '../SubmitButton/SubmitButton';
 
 function Form(props) {
   return (
