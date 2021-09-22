@@ -25,6 +25,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesId, setSavedMoviesId] = useState([]);
   const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
@@ -115,6 +116,7 @@ function App() {
           const sortedMovies = filterMovies(request, formattedMovies, isShort);
           checkSearchError(sortedMovies);
           setFilteredMovies(sortedMovies);
+          setAllMovies(formattedMovies);
           localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
           localStorage.setItem('localMovies', JSON.stringify(formattedMovies));
         }).catch((err) => {
@@ -128,7 +130,7 @@ function App() {
       setFilteredMovies(sortedMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
     } else if (localMovies && !request) {
-      const sortedMovies = filterMovies(request, localMovies, isShort);
+      const sortedMovies = filterMovies(request, allMovies, isShort);
       setFilteredMovies(sortedMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
     }
