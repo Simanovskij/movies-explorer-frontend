@@ -22,7 +22,7 @@ import parseError from '../../utils/ParseError';
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -33,6 +33,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoMessage, setInfoMessage] = useState('');
   const [infoImage, setInfoImage] = useState(null);
+
   function onRegister(data) {
     setIsLoading(true);
     mainApi.register(data).then(() => {
@@ -242,7 +243,7 @@ function App() {
             <Register onRegister={onRegister} isLoading={isLoading} />
           </Route>
           <Route path='/signin'>
-            <Login onLogin={onLogin} isLoading={isLoading}/>
+            <Login onLogin={onLogin} isLoading={isLoading} />
           </Route>
           <Route>
             <NotFound path='*' />

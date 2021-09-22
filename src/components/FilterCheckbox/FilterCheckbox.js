@@ -1,4 +1,3 @@
-import Preloader from '../Preloader/Preloader';
 import './FilterCheckbox.css';
 
 function FilterCheckbox(props) {
