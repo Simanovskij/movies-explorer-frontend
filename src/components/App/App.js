@@ -107,7 +107,7 @@ function App() {
 
   function getFilteredMovies(request, isShort) {
     const localMovies = JSON.parse(localStorage.getItem('localMovies'));
-    if (!localMovies) {
+    if (!localMovies && request) {
       setIsLoading(true);
       moviesApi.getMovies()
         .then((movies) => {
@@ -122,9 +122,13 @@ function App() {
         }).finally(() => {
           setIsLoading(false);
         });
-    } else {
+    } else if (localMovies && request) {
       const sortedMovies = filterMovies(request, localMovies, isShort);
       checkSearchError(sortedMovies);
+      setFilteredMovies(sortedMovies);
+      localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
+    } else if (localMovies && !request) {
+      const sortedMovies = filterMovies(request, localMovies, isShort);
       setFilteredMovies(sortedMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(sortedMovies));
     }

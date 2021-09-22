@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
 function SearchForm(props) {
   const [request, setRequest] = useState(localStorage.getItem('request') || '');
-  const [isShort, setIsShort] = useState(false);
   const [error, setError] = useState(null);
+  const checkBox = useRef();
 
   function handleChange(e) {
     setRequest(e.target.value);
@@ -13,28 +13,18 @@ function SearchForm(props) {
   }
 
   function handleSubmit(e) {
-    let checkedShort;
-    if (e) {
-      e.preventDefault();
-      checkedShort = isShort;
-    } else {
-      checkedShort = !isShort;
-    }
+    e.preventDefault();
     if (!request) {
       setError('Нужно ввести ключевое слово');
-      return;
+    } else {
+      props.onSubmit(request, checkBox.current.checked);
+      setError('');
     }
-    props.onSubmit(request, checkedShort);
-    setError('');
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('shortCheckBox') === 'true') {
-      setIsShort(true);
-    } else {
-      setIsShort(false);
-    }
-  }, []);
+  function handleCheckBox() {
+    props.onSubmit(request, checkBox.current.checked);
+  }
 
   return (
     <form className='searchform' onSubmit={handleSubmit}>
@@ -44,7 +34,7 @@ function SearchForm(props) {
                value={request} />
         <button type='submit' className='searchform__submit' />
       </div>
-      <FilterCheckbox onSearch={handleSubmit} checked={isShort} onCheck={setIsShort} />
+      <FilterCheckbox checkBox={checkBox} onChange={handleCheckBox} />
     </form>
   );
 }
