@@ -196,6 +196,8 @@ function App() {
           localStorage.clear();
           setIsLoggedIn(false);
         });
+    } else {
+      setIsLoggedIn(false);
     }
   }, []);
 
