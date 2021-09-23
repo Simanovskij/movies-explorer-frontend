@@ -67,13 +67,13 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
           </label>
           <div className=' profile-form__buttons'>
             <button
-              type=' submit'
+              type='submit'
               className={isValid ? ' profile-form__btn' : 'profile-form__btn profile-form__btn_disabled'}
               disabled={!isValid}
             >Редактировать
             </button>
             <button
-              type=' button'
+              type='button'
               className=' profile-form__btn profile-form__btn_logout'
               onClick={onSignOut}>Выйти из
               аккаунта
