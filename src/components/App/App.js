@@ -214,8 +214,6 @@ function App() {
       });
   }
 
-  console.log(pathname);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>

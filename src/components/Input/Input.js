@@ -17,6 +17,7 @@ function Input(props) {
         onChange={handleChange}
         minLength={props.minLength}
         maxLength={props.maxLength}
+        pattern={props.pattern}
         required
       />
       <span className='input__error'>{props.error}</span>

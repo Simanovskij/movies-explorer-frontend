@@ -47,6 +47,7 @@ function Login({ onLogin, isLoading }) {
               onChange={handleChange}
               value={values.email}
               error={errors.email}
+              pattern='([A-z0-9_.-]{1,15})@([A-z0-9_.-]{1,10}).([A-z]{2,8})'
             />
             <Input
               type='password'

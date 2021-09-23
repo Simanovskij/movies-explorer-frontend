@@ -22,54 +22,55 @@ function Register({ onRegister, isLoading }) {
 
   return (
     <section className='enter-page'>
-      { isLoading
-        ? <Preloader/>
+      {isLoading
+        ? <Preloader />
         : <>
-        <div className='enter-page__logo'>
-          <Logo />
-        </div>
-        <Form
-        name='register'
-        title='Добро пожаловать!'
-        submitText='Зарегистрироваться'
-        inviteText='Уже зарегистрированы?'
-        linkText='Войти'
-        forwardLink='/signin'
-        onSubmit={handleSubmit}
-        isValid={isValid}
-        >
-        <Input
-        type='text'
-        name='name'
-        title='Имя'
-        placeholder='Введите имя'
-        minLength='2'
-        maxLength='20'
-        onChange={handleChange}
-        value={values.name}
-        error={errors.name}
-        />
-        <Input
-        type='email'
-        name='email'
-        title='E-mail'
-        placeholder='Введите почту'
-        onChange={handleChange}
-        value={values.email}
-        error={errors.email}
-        />
-        <Input
-        type='password'
-        name='password'
-        title='Пароль'
-        placeholder='Введите пароль'
-        minLength='8'
-        maxlength='20'
-        onChange={handleChange}
-        value={values.password}
-        error={errors.password}
-        />
-        </Form>
+          <div className='enter-page__logo'>
+            <Logo />
+          </div>
+          <Form
+            name='register'
+            title='Добро пожаловать!'
+            submitText='Зарегистрироваться'
+            inviteText='Уже зарегистрированы?'
+            linkText='Войти'
+            forwardLink='/signin'
+            onSubmit={handleSubmit}
+            isValid={isValid}
+          >
+            <Input
+              type='text'
+              name='name'
+              title='Имя'
+              placeholder='Введите имя'
+              minLength='2'
+              maxLength='20'
+              onChange={handleChange}
+              value={values.name}
+              error={errors.name}
+            />
+            <Input
+              // type='email'
+              name='email'
+              title='E-mail'
+              placeholder='Введите почту'
+              onChange={handleChange}
+              value={values.email}
+              error={errors.email}
+              pattern='([A-z0-9_.-]{1,15})@([A-z0-9_.-]{1,10}).([A-z]{2,8})'
+            />
+            <Input
+              type='password'
+              name='password'
+              title='Пароль'
+              placeholder='Введите пароль'
+              minLength='8'
+              maxlength='20'
+              onChange={handleChange}
+              value={values.password}
+              error={errors.password}
+            />
+          </Form>
         </>
       }
     </section>
