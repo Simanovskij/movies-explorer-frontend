@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 import Main from '../Main/Main';
@@ -6,7 +6,6 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
-import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
@@ -18,11 +17,13 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import successImage from '../../images/Succes.svg';
 import notSuccessImage from '../../images/notSucces.svg';
 import parseError from '../../utils/ParseError';
+import Register from '../Register/Register';
 
 function App() {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
@@ -195,8 +196,11 @@ function App() {
         }).catch(() => {
           localStorage.clear();
           setIsLoggedIn(false);
+        }).finally(() => {
+          setIsChecked(true);
         });
     } else {
+      setIsChecked(true);
       setIsLoggedIn(false);
     }
   }, []);
@@ -210,10 +214,13 @@ function App() {
       });
   }
 
+  console.log(pathname);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
-        <Switch>
+        {isChecked
+        && <Switch>
           <Route exact path='/'>
             <Main isLoggedIn={isLoggedIn} pathname={pathname} />
           </Route>
@@ -248,15 +255,26 @@ function App() {
             component={Profile}
           />
           <Route path='/signup'>
-            <Register onRegister={onRegister} isLoading={isLoading} />
+            {isLoggedIn
+              ? <Redirect to='movies' />
+              : <Register
+                onRegister={onRegister}
+                isLoading={isLoading}
+              />}
           </Route>
           <Route path='/signin'>
-            <Login onLogin={onLogin} isLoading={isLoading} />
+            {isLoggedIn
+              ? <Redirect to='movies' />
+              : <Login
+                onLogin={onLogin}
+                isLoading={isLoading}
+              />}
           </Route>
           <Route>
             <NotFound path='*' />
           </Route>
         </Switch>
+        }
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           setIsOpen={setIsInfoTooltipOpen}
