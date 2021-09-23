@@ -57,7 +57,7 @@ function Register({ onRegister, isLoading }) {
               onChange={handleChange}
               value={values.email}
               error={errors.email}
-              pattern='([A-z0-9_.-]{1,15})@([A-z0-9_.-]{1,10}).([A-z]{2,8})'
+              pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
             />
             <Input
               type='password'

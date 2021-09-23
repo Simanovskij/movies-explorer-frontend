@@ -9,6 +9,7 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [errors, setErrors] = useState({});
+
   function handleInputChange(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -35,49 +36,51 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
 
   return (
     <>
-    <Header isLoggedIn={isLoggedIn}/>
-    <section className='profile'>
-      <form className='profile-form' name='profile' onSubmit={handleSubmit}>
-        <h2 className='profile-form__title'>Привет, {currentUser.name}</h2>
-        <label className='profile-form__label'>Имя
-          <input
-            className='profile-form__input'
-            name='name'
-            type='text'
-            minLength='2'
-            maxLength='20'
-            required
-            value={name || ''}
-            onChange={handleInputChange}
-          />
-          <span className='input__error input__error_name'>{errors.name}</span>
-        </label>
-        <label className='profile-form__label'>Почта
-          <input
-            className='profile-form__input'
-            name='email'
-            type='email'
-            required
-            value={email || ''}
-            onChange={handleInputChange}
-          />
-          <span className='input__error input__error_email'>{errors.email}</span>
-        </label>
-        <div className='profile-form__buttons'>
-          <button
-            type='submit'
-            className={isValid ? 'profile-form__btn' : 'profile-form__btn profile-form__btn_disabled'}
-            disabled={!isValid}
-          >Редактировать</button>
-          <button
-            type='button'
-            className='profile-form__btn profile-form__btn_logout'
-            onClick={onSignOut}>Выйти из
-            аккаунта
-          </button>
-        </div>
-      </form>
-    </section>
+      <Header isLoggedIn={isLoggedIn} />
+      <section className='profile'>
+        <form className='profile-form' name='profile' onSubmit={handleSubmit}>
+          <h2 className='profile-form__title'>Привет, {currentUser.name}</h2>
+          <label className='profile-form__label'>Имя
+            <input
+              className='profile-form__input'
+              name='name'
+              type='text'
+              minLength='2'
+              maxLength='20'
+              required
+              value={name || ''}
+              onChange={handleInputChange}
+            />
+            <span className='input__error input__error_name'>{errors.name}</span>
+          </label>
+          <label className='profile-form__label'>Почта
+            <input
+              className='profile-form__input'
+              name='email'
+              type='email'
+              required
+              value={email || ''}
+              onChange={handleInputChange}
+              pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
+            />
+            <span className=' input__error input__error_email'>{errors.email}</span>
+          </label>
+          <div className=' profile-form__buttons'>
+            <button
+              type=' submit'
+              className={isValid ? ' profile-form__btn' : 'profile-form__btn profile-form__btn_disabled'}
+              disabled={!isValid}
+            >Редактировать
+            </button>
+            <button
+              type=' button'
+              className=' profile-form__btn profile-form__btn_logout'
+              onClick={onSignOut}>Выйти из
+              аккаунта
+            </button>
+          </div>
+        </form>
+      </section>
     </>
   );
 }
