@@ -47,7 +47,7 @@ function Login({ onLogin, isLoading }) {
               onChange={handleChange}
               value={values.email}
               error={errors.email}
-              pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'
+              pattern='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,6}$'
             />
             <Input
               type='password'
