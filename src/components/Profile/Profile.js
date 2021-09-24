@@ -61,7 +61,7 @@ function Profile({ onSignOut, onUpdate, isLoggedIn }) {
               required
               value={email || ''}
               onChange={handleInputChange}
-              pattern='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,6}$'
+              pattern='[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}'
             />
             <span className=' input__error input__error_email'>{errors.email}</span>
           </label>

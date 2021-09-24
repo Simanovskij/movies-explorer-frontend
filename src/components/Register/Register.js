@@ -50,14 +50,14 @@ function Register({ onRegister, isLoading }) {
               error={errors.name}
             />
             <Input
-              // type='email'
+              type='email'
               name='email'
               title='E-mail'
               placeholder='Введите почту'
               onChange={handleChange}
               value={values.email}
               error={errors.email}
-              pattern='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]{2,6}$'
+              pattern='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$'
             />
             <Input
               type='password'
