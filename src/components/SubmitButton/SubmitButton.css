@@ -1,0 +1,29 @@
+.form__submit-btn {
+  height: 45px;
+  border-radius: 3px;
+  background: #3456F3;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  border: none;
+  margin: 69px 0 16px;
+  cursor: pointer;
+  transition: opacity 0.4s linear;
+}
+
+.form__submit-btn_margin {
+  margin-top: 157px;
+}
+
+
+.form__submit-btn:hover {
+  opacity: .8;
+}
+
+.form__submit-btn_disabled {
+  background: #F8F8F8;
+  cursor: default;
+  color: #C2C2C2;
+}

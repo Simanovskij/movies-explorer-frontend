@@ -1,6 +1,16 @@
 import './BurgerButton.css';
 
-function BurgerButton({ onClick, isOpen }) {
+function BurgerButton({ onClick, isOpen, isMain }) {
+  function burgerButtonClass() {
+    if ((!isMain && isOpen) || (isMain && isOpen)) {
+      return 'burger-button burger-button_clicked';
+    }
+    if (!isMain && !isOpen) {
+      return 'burger-button';
+    }
+    return 'burger-button burger-button_type_main';
+  }
+
   const clickHandler = () => {
     onClick();
   };
@@ -8,9 +18,7 @@ function BurgerButton({ onClick, isOpen }) {
   return (
     <div
       onClick={clickHandler}
-      className={
-        isOpen ? 'burger-button burger-button_clicked' : 'burger-button'
-      }
+      className={burgerButtonClass()}
     ></div>
   );
 }

@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
+function FilterCheckbox(props) {
   return (
     <div className='filter-checkbox'>
       <p className='filter-checkbox__title'>Короткометражки</p>
@@ -9,6 +9,8 @@ function FilterCheckbox() {
           type='checkbox'
           id='checkbox'
           className='filter-checkbox__input'
+          onChange={props.onChange}
+          ref={props.checkBox}
         />
         <span className='filter-checkbox__slider'></span>
       </label>

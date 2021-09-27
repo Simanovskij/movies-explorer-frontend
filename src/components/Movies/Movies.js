@@ -1,20 +1,39 @@
-import './Movies.css';
-import { lazy, Suspense } from 'react';
-import Searchform from '../SearchForm/SearchForm';
+import SearchForm from '../SearchForm/SearchForm';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import './Movies.css';
 
-function Movies(props) {
-  const MoviesCardList = lazy(
-    () => new Promise((resolve) => setTimeout(() => resolve(import('../MoviesCardList/MoviesCardList')), 1000)),
-  );
-
-  return (
-    <main className='movies'>
-      <Searchform />
-      <Suspense fallback={<Preloader />}>
-        <MoviesCardList pathname={props.pathname} />
-      </Suspense>
-    </main>
+function Movies({
+  isLoggedIn,
+  pathname,
+  onSearch,
+  movies,
+  onSave,
+  onDelete,
+  onSearchError,
+  savedMoviesId,
+  isLoading,
+}) {
+  return (<>
+      <Header isLoggedIn={isLoggedIn}/>
+      <main className='movies'>
+        <SearchForm onSubmit={onSearch} />
+        {isLoading
+          ? <Preloader/>
+          : <MoviesCardList
+              pathname={pathname}
+              movies={movies}
+              onSearchError={onSearchError}
+              onSave={onSave}
+              onDelete={onDelete}
+              savedMoviesId={savedMoviesId}
+            />
+        }
+      </main>
+      <Footer />
+    </>
   );
 }
 

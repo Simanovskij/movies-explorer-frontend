@@ -1,15 +1,13 @@
 import './Header.css';
-import { Link, Route, Switch } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '../Navigation/Navigation';
-import ProfileBtn from '../ProfileBtn/ProfileBtn';
 import Logo from '../Logo/Logo';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import BurgerButton from '../BurgerButton/BurgerButton';
 
-function Header({ isLoggedIn }) {
-  const [width, setWidth] = useState(document.documentElement.clientWidth);
+function Header({ isLoggedIn, pathname }) {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [width, setWidth] = useState(document.documentElement.clientWidth);
 
   const updateWidth = () => {
     setWidth(document.documentElement.clientWidth);
@@ -26,39 +24,23 @@ function Header({ isLoggedIn }) {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
+  const isMain = pathname === '/';
+
   return (
-    <header className={isLoggedIn ? 'header header_type_logged' : 'header'}>
+    <header className={isMain ? 'header header_type_main' : 'header'}>
       <div className='header__logo'>
         <Logo />
       </div>
-      <Switch>
-        <Route exact path='/'>
-          <div>
-            <Link to='/signup' className='header__btn'>
-              Регистрация
-            </Link>
-            <Link to='/signin' className='header__btn header__btn_type_signin'>
-              Войти
-            </Link>
-          </div>
-        </Route>
-        <Route path={['/movies', '/saved-movies', '/profile']}>
-          {isMobile ? (
-            <>
-              <BurgerButton
-                onClick={openBurgerHandler}
-                isOpen={isBurgerMenuOpen}
-              />{' '}
-              <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
-            </>
-          ) : (
-            <>
-              {' '}
-              <Navigation /> <ProfileBtn />
-            </>
-          )}
-        </Route>
-      </Switch>
+      {isMobile && isLoggedIn
+        ? <>
+          <BurgerButton
+            onClick={openBurgerHandler}
+            isOpen={isBurgerMenuOpen}
+            isMain={isMain}
+          />{' '}
+          <BurgerMenu isOpen={isBurgerMenuOpen} />{' '}
+        </>
+        : <Navigation isMain={isMain} isLoggedIn={isLoggedIn} />}
     </header>
   );
 }
